@@ -20,24 +20,24 @@ public class Relaciones {
 	
 	public Relaciones() {
 		
-		
+		Coordinador miCoordinador;
 		RegistrarPersonasGui miRegistrarPersonasGui;
 		RegistrarMascotasGui miRegistrarMascotasGui;
 		RegistrarProductosGui miRegistrarProductosGui;
-		Coordinador miCoordinador;
-		PersonaDao miPersonaDao;
-		NacimientoDao miNacimientoDao;
-		MascotaDao miMascotaDao;
-		ProductoDao miProductoDao;
-		PersonaProductoDao miPersonaProductoDao;
 		ConsultarPersonaGui miColsultaPersonaGui;
 		ConsultarMascotasGui miConsultarMascotasGui;
 		ConsultarProductosGui miConsultarProductosGui;
 		TotalDePersonasRegistradas miTotalDePersonasRegistradas;
+		PersonaDao miPersonaDao;
+		MascotaDao miMascotaDao;
+		ProductoDao miProductoDao;
+		NacimientoDao miNacimientoDao;
+		PersonaProductoDao miPersonaProductoDao;
 		
 		// se instancia por unica ocasion las clases declaradas 
 		
 		miVentanaPrincipal= new VentanaPrincipal();
+		miCoordinador= new Coordinador();
 		miRegistrarPersonasGui = new RegistrarPersonasGui(miVentanaPrincipal, true);
 		miRegistrarMascotasGui = new RegistrarMascotasGui(miVentanaPrincipal, true, "");
 		miRegistrarProductosGui= new RegistrarProductosGui(miVentanaPrincipal, true);
@@ -45,11 +45,10 @@ public class Relaciones {
 		miConsultarMascotasGui=new ConsultarMascotasGui();
 		miConsultarProductosGui=new ConsultarProductosGui();
 		miTotalDePersonasRegistradas=new TotalDePersonasRegistradas();
-		miCoordinador= new Coordinador();
 		miPersonaDao= new PersonaDao();
 		miMascotaDao= new MascotaDao();
-		miNacimientoDao= new NacimientoDao();
 		miProductoDao= new ProductoDao();
+		miNacimientoDao= new NacimientoDao();
 		miPersonaProductoDao= new PersonaProductoDao();
 		
 		//Se establece la relación entre el coordinador y cada instancia unica
@@ -65,8 +64,8 @@ public class Relaciones {
 		miCoordinador.setTotalDePersonasRegistradas(miTotalDePersonasRegistradas);
 		miCoordinador.setPersonaDao(miPersonaDao);
 		miCoordinador.setMascotaDao(miMascotaDao);
-		miCoordinador.setNacimientoDao(miNacimientoDao);
 		miCoordinador.setProductoDao(miProductoDao);
+		miCoordinador.setNacimientoDao(miNacimientoDao);
 		miCoordinador.setPersonaProductoDao(miPersonaProductoDao);
 		
 		//A cada clase unica se le asigna la unica instancia del coordinador
@@ -80,9 +79,9 @@ public class Relaciones {
 		miConsultarProductosGui.setCoordinador(miCoordinador);
 		miTotalDePersonasRegistradas.setCoordinador(miCoordinador);
 		miPersonaDao.setCoordinador(miCoordinador);
-		miNacimientoDao.setCoordinador(miCoordinador);
 		miMascotaDao.setCoordinador(miCoordinador);
 		miProductoDao.setCoordinador(miCoordinador);
+		miNacimientoDao.setCoordinador(miCoordinador);
 		miPersonaProductoDao.setCoordinador(miCoordinador);
 		
 

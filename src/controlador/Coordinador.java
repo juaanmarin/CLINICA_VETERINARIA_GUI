@@ -138,6 +138,9 @@ public class Coordinador {
 		
 		return NacimientoDao.consultarNacimiento(idNacimiento);
 	}
+	public PersonaVo consultarTodasLasPersonas() {
+		return miPersonaDao.consultarTodasLasPersonas();
+	}
 
 	
 

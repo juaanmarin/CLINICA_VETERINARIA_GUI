@@ -141,6 +141,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		}
 		else if (e.getSource() == itemListaTotal) {
 			miCoordinador.mostrarVentanaTotalDePersonasRegistradas();
+			miCoordinador.consultarTodasLasPersonas();
+			System.out.println("aqui esta la consulta");
 		}
 	
 	}

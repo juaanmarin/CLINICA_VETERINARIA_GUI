@@ -72,7 +72,7 @@ public class PersonaDao {
 		connection=miConexion.getConnection();
 		
 		String consulta="SELECT * FROM persona where id_persona= ? ";
-		
+		System.out.println("*********************************************");
 		try {
 			if(connection!=null) {
 				statement=connection.prepareStatement(consulta);
@@ -104,6 +104,57 @@ public class PersonaDao {
 		}
 		
 		return miPersona;
+	}
+	
+	public void ActualizarPersona() {
+		
+	}
+	
+	public PersonaVo consultarTodasLasPersonas() {
+		Connection connection=null;
+		Conexion miConexion=new Conexion();
+		PreparedStatement statement=null;
+		ResultSet result=null;
+		
+		PersonaVo miPersona=null;
+		NacimientoVo miNacimiento=null;
+		
+		connection=miConexion.getConnection();
+		
+		String consulta="SELECT * FROM persona";
+		System.out.println("*********************************************");
+		try {
+			if(connection!=null) {
+				statement=connection.prepareStatement(consulta);
+				//statement.setLong(1, idDocumento);
+				result=statement.executeQuery();
+				
+				while(result.next()==true){
+					miPersona=new PersonaVo();
+					miPersona.setIdPersona(result.getLong("id_persona"));
+					miPersona.setNombre(result.getString("nombre_persona"));
+					
+					miPersona.setProfesion(result.getString("profesion_persona"));
+					miPersona.setTelefono(result.getString("telefono_persona"));
+					miPersona.setTipo(result.getInt("tipo_persona"));
+					
+					miNacimiento =new NacimientoVo();
+					miNacimiento.setIdNacimiento(Long.parseLong(result.getString("nacimiento_id")));
+					miPersona.setNacimiento(miNacimiento);	
+				}
+				
+				miConexion.desconectar();
+			}
+			else {
+				miPersona=null;
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("Error en la consulta de la persona" +e.getMessage());
+		}
+		
+		return miPersona;
+	
 	}
 
 }
