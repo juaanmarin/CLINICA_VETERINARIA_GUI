@@ -1,10 +1,13 @@
 package controlador;
 
+import java.util.ArrayList;
+
 import modelo.dao.MascotaDao;
 import modelo.dao.NacimientoDao;
 import modelo.dao.PersonaDao;
 import modelo.dao.PersonaProductoDao;
 import modelo.dao.ProductoDao;
+import modelo.vo.MascotaVo;
 import modelo.vo.NacimientoVo;
 import modelo.vo.PersonaVo;
 import vista.gui.ConsultarMascotasGui;
@@ -138,10 +141,21 @@ public class Coordinador {
 		
 		return NacimientoDao.consultarNacimiento(idNacimiento);
 	}
-	public PersonaVo consultarTodasLasPersonas() {
+	public ArrayList<PersonaVo> consultarTodasLasPersonas() {
 		return miPersonaDao.consultarTodasLasPersonas();
 	}
 
+	public String registrarMascota(MascotaVo miMascota) {
+		return miMascotaDao.registrarMascota(miMascota);
+	}
+
+	public String actualizarPersona(PersonaVo miPersona) {
+		return miPersonaDao.ActualizarPersona(miPersona);
+	}
+
+	public Long actualizarNacimiento(NacimientoVo miPersona) {
+		return miNacimientoDao.actualizarNacimiento(miPersona);
+	}
 	
 
 	

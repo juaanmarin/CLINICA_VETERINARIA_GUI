@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controlador.Coordinador;
+import modelo.vo.PersonaVo;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -115,7 +116,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		
 		JLabel lblImagen = new JLabel();
 		lblImagen.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/images/veterinario.jpg")));
-		panel.add(lblImagen, BorderLayout.CENTER);
+		panel.add(lblImagen, BorderLayout.WEST);
 	}
 
 	@Override
@@ -141,8 +142,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		}
 		else if (e.getSource() == itemListaTotal) {
 			miCoordinador.mostrarVentanaTotalDePersonasRegistradas();
-			miCoordinador.consultarTodasLasPersonas();
-			System.out.println("aqui esta la consulta");
 		}
 	
 	}

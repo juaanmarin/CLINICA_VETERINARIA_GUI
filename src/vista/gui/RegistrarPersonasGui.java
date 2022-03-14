@@ -258,12 +258,13 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener {
 			}
 		}
 		
-		if (e.getSource()==btnAgregarMascotas) {
+		
+		else if (e.getSource()==btnAgregarMascotas) {
 			RegistrarMascotasGui ventanaGestionMascotas=new RegistrarMascotasGui(null, true,txtDocumento.getText());
 			ventanaGestionMascotas.setVisible(true);
 		}
 		
-		if ( e.getSource()  == btnCancelar ) {		
+		else if ( e.getSource()  == btnCancelar ) {		
 			setVisible(false);
 		}
 	}

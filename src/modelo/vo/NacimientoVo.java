@@ -66,9 +66,8 @@ public class NacimientoVo {
 
 	@Override
 	public String toString() {
-		String cad = "Nacimiento [idNacimiento=" + idNacimiento + ", fechaNacimiento=" + fechaNacimiento
-				+ ", ciudadNacimiento=" + ciudadNacimiento + ", departamentoNacimiento=" + departamentoNacimiento
-				+ ", paisNacimiento=" + paisNacimiento + "]";
+		String cad = "idNacimiento: "+idNacimiento+ "\nfechaNacimiento: "+fechaNacimiento+"\nciudadNacimiento: "+ciudadNacimiento+ 
+				"\ndepartamentoNacimiento :"+departamentoNacimiento+ "\npaisNacimiento: "+paisNacimiento;
 		
 		return cad;
 	}

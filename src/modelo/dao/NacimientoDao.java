@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import controlador.Coordinador;
 import modelo.conexion.Conexion;
 import modelo.vo.NacimientoVo;
+import modelo.vo.PersonaVo;
 
 
 public class NacimientoDao {
@@ -106,5 +107,54 @@ public class NacimientoDao {
 			System.out.println("Error en la consulta de la persona: " +e.getMessage());
 		}
 		return miNacimiento;
+	}
+
+	public Long actualizarNacimiento(NacimientoVo miNacimiento) {
+		Long idNacimiento=null;
+		Connection connection = null;
+		Conexion conexion = new Conexion();
+		PreparedStatement preStatement = null;
+		
+		ResultSet result=null;
+		
+		connection = conexion.getConnection();
+		
+		String consulta = "UPDATE nacimiento "
+				+ "SET ciudad_nacimiento = ?,"
+				+ "departamento_nacimiento = ?,"
+				+ "fecha_nacimiento = ?,"
+				+ "pais_nacimiento= ?"
+				+ "WHERE id_nacimiento = ?;";
+		
+		try {
+			preStatement =connection.prepareStatement(consulta,Statement.RETURN_GENERATED_KEYS);
+
+			preStatement.setString(1, miNacimiento.getCiudadNacimiento());
+			preStatement.setString(2, miNacimiento.getDepartamentoNacimiento());
+			preStatement.setString(3, miNacimiento.getFechaNacimiento().toString());
+			preStatement.setString(4, miNacimiento.getPaisNacimiento());
+			
+			preStatement.setLong(5, miNacimiento.getIdNacimiento());
+			preStatement.executeUpdate();
+			result=preStatement.getGeneratedKeys();
+			if (result.next()) {
+				idNacimiento=result.getLong(1);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("No se pudo Actualizar los datos del nacimiento: "+ e.getMessage());
+			e.printStackTrace();
+			idNacimiento = null;
+		}catch (Exception e) {
+			System.out.println("No se pudo Actualizar los datos del nacimiento: "+ e.getMessage());
+
+			e.printStackTrace();
+			idNacimiento = null;
+		}
+		finally {
+			conexion.desconectar();
+		}
+		System.out.println("El ID del Nacimiento es: "+idNacimiento);
+		return idNacimiento;	
 	}
 }

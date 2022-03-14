@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import controlador.Coordinador;
 import modelo.conexion.Conexion;
 
@@ -105,12 +107,55 @@ public class PersonaDao {
 		
 		return miPersona;
 	}
-	
-	public void ActualizarPersona() {
+
+	public String ActualizarPersona(PersonaVo miPersona) {
+		String resultado = "";
 		
+		Connection connection = null;
+		Conexion conexion = new Conexion();
+		PreparedStatement preStatement = null;
+		
+		connection = conexion.getConnection();
+		String consulta = "UPDATE persona "
+				+ "SET nombre_persona = ? , "
+				+ "profesion_persona = ? ,"
+				+ "telefono_persona = ? , "
+				+ "tipo_persona = ? ,"
+				+ "nacimiento_id=?"
+				+ "WHERE id_persona = ?;";
+		
+		try {
+			preStatement = connection.prepareStatement(consulta);
+			preStatement.setString(1, miPersona.getNombre());
+			preStatement.setString(2, miPersona.getProfesion());
+			preStatement.setString(3, miPersona.getTelefono());
+			preStatement.setInt(4, miPersona.getTipo());
+			preStatement.setLong(5, miPersona.getNacimiento().getIdNacimiento());
+			
+			preStatement.setLong(6, miPersona.getIdPersona());
+			preStatement.executeUpdate();
+			
+			resultado = "ok";
+			
+		} catch (SQLException e) {
+			System.out.println("no se pudo Actualizar la persona, verifique el documento no existe: "+ e.getMessage());
+			e.printStackTrace();
+			resultado = "No se pudo Actualizar la persona";
+		}
+		catch (Exception e) {
+			System.out.println("No se pudo Actualizar la persona: " +e.getMessage());
+			e.printStackTrace();
+			resultado = "No se pudo Actualizar la persona";
+		}
+		finally {
+			conexion.desconectar();
+		}
+		return resultado;
 	}
-	
-	public PersonaVo consultarTodasLasPersonas() {
+
+	public ArrayList<PersonaVo> consultarTodasLasPersonas() {
+		ArrayList<PersonaVo> todosLosDatos=new ArrayList<>();
+		
 		Connection connection=null;
 		Conexion miConexion=new Conexion();
 		PreparedStatement statement=null;
@@ -130,7 +175,9 @@ public class PersonaDao {
 				result=statement.executeQuery();
 				
 				while(result.next()==true){
+					
 					miPersona=new PersonaVo();
+					
 					miPersona.setIdPersona(result.getLong("id_persona"));
 					miPersona.setNombre(result.getString("nombre_persona"));
 					
@@ -141,6 +188,7 @@ public class PersonaDao {
 					miNacimiento =new NacimientoVo();
 					miNacimiento.setIdNacimiento(Long.parseLong(result.getString("nacimiento_id")));
 					miPersona.setNacimiento(miNacimiento);	
+					todosLosDatos.add(miPersona);
 				}
 				
 				miConexion.desconectar();
@@ -153,7 +201,7 @@ public class PersonaDao {
 			System.out.println("Error en la consulta de la persona" +e.getMessage());
 		}
 		
-		return miPersona;
+		return todosLosDatos;
 	
 	}
 

@@ -87,8 +87,8 @@ public class PersonaVo {
 
 	@Override
 	public String toString() {
-		return "PersonaVo [idPersona=" + idPersona + ", nombre=" + nombre + ", telefono=" + telefono + ", profesion="
-				+ profesion + ", tipo=" + tipo + ", nacimiento=" + nacimiento+ "]";
+		return "idPersona: "+idPersona+"\nnombre: "+nombre+"\ntelefono: "+telefono+"\nprofesion: "+profesion+"\ntipo: "+tipo+
+				"\nnacimiento: "+nacimiento+"\n\n";
 	}
 	
 	

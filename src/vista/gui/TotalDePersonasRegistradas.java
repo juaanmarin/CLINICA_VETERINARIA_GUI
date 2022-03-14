@@ -11,17 +11,23 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 import controlador.Coordinador;
+import modelo.vo.PersonaVo;
 
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
 
 public class TotalDePersonasRegistradas extends JDialog implements ActionListener{
 
 	private JPanel miPanel;
 	private JTextArea AreaResultado;
 	private Coordinador miCoordinador;
+	private JButton btnConsultarTodasLasPersonas;
+	private JButton btnLimpiar;
 
 	
 	public TotalDePersonasRegistradas() {
@@ -41,15 +47,34 @@ public class TotalDePersonasRegistradas extends JDialog implements ActionListene
 		AreaResultado.setLineWrap(true);
 		
 		JScrollPane scroll = new JScrollPane(AreaResultado, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		scroll.setBounds(29, 66, 375, 166);
+		scroll.setBounds(31, 46, 375, 133);
 		miPanel.add(scroll);
+		
+		btnConsultarTodasLasPersonas = new JButton("consultar");
+		btnConsultarTodasLasPersonas.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnConsultarTodasLasPersonas.setBounds(87, 215, 99, 31);
+		btnConsultarTodasLasPersonas.addActionListener(this);
+		miPanel.add(btnConsultarTodasLasPersonas);
+		
+		btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnLimpiar.setBounds(249, 215, 99, 31);
+		btnLimpiar.addActionListener(this);
+		miPanel.add(btnLimpiar);
 		
 	}
 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		if (e.getSource()==btnConsultarTodasLasPersonas) {
+			ArrayList<PersonaVo> persona=miCoordinador.consultarTodasLasPersonas();
+			AreaResultado.setText(""+persona);
+		}
+		else if(e.getSource()==btnLimpiar) {
+			AreaResultado.setText("");
+		}
+		
 		
 	}
 
@@ -58,5 +83,4 @@ public class TotalDePersonasRegistradas extends JDialog implements ActionListene
 		this.miCoordinador=miCoordinador;
 		
 	}
-
 }
