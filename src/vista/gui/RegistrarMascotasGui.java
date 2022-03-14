@@ -40,24 +40,14 @@ public class RegistrarMascotasGui extends JDialog implements ActionListener {
 	private JButton btnRegistrar;
 	private Coordinador miCoordinador;
 
-
-	/**
-	 * Create the dialog.
-	 * @param b 
-	 * @param ventanaPrincipal 
-	 * @param documento 
-	 */
 	public RegistrarMascotasGui(VentanaPrincipal ventanaPrincipal, boolean modal, String documento) {
 		super(ventanaPrincipal,modal);
 		setSize( 408, 288);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		setTitle("Gestion de Mascotas");
-		iniciarComponentes(documento);
-		
-		
+		iniciarComponentes(documento);	
 	}
-
 
 	private void iniciarComponentes(String documento) {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

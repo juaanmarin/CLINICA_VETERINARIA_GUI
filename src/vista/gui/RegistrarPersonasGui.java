@@ -48,22 +48,14 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener {
 	private JButton btnRegistrar;
 	private Coordinador miCoordinador;
 
-
-	/**
-	 * Create the dialog.
-	 * @param b 
-	 * @param ventanaPrincipal 
-	 */
 	public RegistrarPersonasGui(VentanaPrincipal ventanaPrincipal, boolean modal) {
 		super(ventanaPrincipal,modal);
 		setSize( 624, 423);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		iniciarComponentes();
-		setTitle("Gestion de Personas");
-		
+		setTitle("Gestion de Personas");	
 	}
-
 
 	private void iniciarComponentes() {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -235,7 +227,7 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener {
 				miNacimiento.setFechaNacimiento(LocalDate.of(Integer.parseInt(txtAnio.getText()),
 				Integer.parseInt(txtMes.getText()), Integer.parseInt(txtDia.getText())));
 				
-				//Asignamos el objeto de Nacimiento a la persona
+				//Asignamos el objeto miNacimiento a la persona
 				miPersona.setNacimiento(miNacimiento);
 				
 				
@@ -271,8 +263,7 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener {
 			ventanaGestionMascotas.setVisible(true);
 		}
 		
-		if ( e.getSource()  == btnCancelar ) {
-			
+		if ( e.getSource()  == btnCancelar ) {		
 			setVisible(false);
 		}
 	}

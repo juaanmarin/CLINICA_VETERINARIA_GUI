@@ -18,7 +18,7 @@ public class NacimientoDao {
 	private Coordinador miCoordinador;
 
 	public void setCoordinador(Coordinador miCoordinador) {
-		this.miCoordinador=miCoordinador;	
+		this.miCoordinador=miCoordinador;
 	}
 	
 	public Long registrarNacimiento(NacimientoVo miNacimiento) {
@@ -39,8 +39,7 @@ public class NacimientoDao {
 
 			preStatement.setString(1, miNacimiento.getCiudadNacimiento());
 			preStatement.setString(2, miNacimiento.getDepartamentoNacimiento());
-			preStatement.setString(3,
-			miNacimiento.getFechaNacimiento().toString());
+			preStatement.setString(3, miNacimiento.getFechaNacimiento().toString());
 
 			preStatement.setString(4, miNacimiento.getPaisNacimiento());
 			preStatement.execute();
