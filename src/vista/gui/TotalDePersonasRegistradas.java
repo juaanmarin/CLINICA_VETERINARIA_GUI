@@ -71,11 +71,10 @@ public class TotalDePersonasRegistradas extends JDialog implements ActionListene
 			ArrayList<PersonaVo> persona=miCoordinador.consultarTodasLasPersonas();
 			AreaResultado.setText(""+persona);
 		}
+		
 		else if(e.getSource()==btnLimpiar) {
 			AreaResultado.setText("");
 		}
-		
-		
 	}
 
 

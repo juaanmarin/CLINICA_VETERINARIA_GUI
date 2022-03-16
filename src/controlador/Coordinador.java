@@ -197,5 +197,9 @@ public class Coordinador {
 		return miProductoDao.registrarProductos(miProducto, idUsuario);
 	}
 
+	public ArrayList<ProductoVo> consultarTodosLosProductos() {
+		return miProductoDao.consultarTodosLosProductos();
+	}
+
 
 }

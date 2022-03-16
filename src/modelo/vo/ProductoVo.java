@@ -42,8 +42,7 @@ public class ProductoVo {
 
 	@Override
 	public String toString() {
-		return "ProductoVo [idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", precioProducto="
-				+ precioProducto + "]";
+		return "idProducto: "+idProducto+ "\nnombreProducto: "+nombreProducto+ "\nprecioProducto:"+ precioProducto+"\n\n";
 	}
 	
 }
