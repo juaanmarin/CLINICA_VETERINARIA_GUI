@@ -128,8 +128,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			miCoordinador.mostrarVentanaRegistroMascotas();
 		}
 		else if (e.getSource()==itemRegistroProductos) {
-			RegistrarProductosGui RegistrarProductos=new RegistrarProductosGui(this, true);
-			RegistrarProductos.setVisible(true);
+			miCoordinador.registrarVentanaRegistrarProductos();
 		}		
 		else if(e.getSource() == itemGestonPersonas) {
 			miCoordinador.mostrarVentanaConsultaPersona();

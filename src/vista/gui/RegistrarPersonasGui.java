@@ -43,7 +43,6 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener {
 	private JTextField txtCiudad;
 	private JTextField txtDepartamento;
 	private JTextField txtPais;
-	private JButton btnAgregarMascotas;
 	private JButton btnCancelar;
 	private JButton btnRegistrar;
 	private Coordinador miCoordinador;
@@ -75,53 +74,53 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener {
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Documento:");
-		lblNewLabel.setBounds(24, 22, 71, 21);
+		lblNewLabel.setBounds(24, 34, 71, 21);
 		panel.add(lblNewLabel);
 		
 		txtDocumento = new JTextField();
-		txtDocumento.setBounds(99, 22, 86, 20);
+		txtDocumento.setBounds(99, 34, 86, 20);
 		panel.add(txtDocumento);
 		txtDocumento.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(195, 22, 71, 21);
+		lblNombre.setBounds(195, 34, 71, 21);
 		panel.add(lblNombre);
 		
 		txtNombre = new JTextField();
 		txtNombre.setColumns(10);
-		txtNombre.setBounds(259, 22, 303, 20);
+		txtNombre.setBounds(259, 34, 303, 20);
 		panel.add(txtNombre);
 		
 		JLabel lblTelefono = new JLabel("Telefono:");
-		lblTelefono.setBounds(24, 54, 71, 21);
+		lblTelefono.setBounds(24, 66, 71, 21);
 		panel.add(lblTelefono);
 		
 		txtTelefono = new JTextField();
 		txtTelefono.setColumns(10);
-		txtTelefono.setBounds(99, 54, 86, 20);
+		txtTelefono.setBounds(99, 66, 86, 20);
 		panel.add(txtTelefono);
 		
 		JLabel lblProfesion = new JLabel("Profesion:");
-		lblProfesion.setBounds(195, 54, 71, 21);
+		lblProfesion.setBounds(195, 66, 71, 21);
 		panel.add(lblProfesion);
 		
 		txtProfesion = new JTextField();
 		txtProfesion.setColumns(10);
-		txtProfesion.setBounds(259, 54, 167, 20);
+		txtProfesion.setBounds(259, 66, 167, 20);
 		panel.add(txtProfesion);
 		
 		JLabel lblTipo = new JLabel("Tipo:");
-		lblTipo.setBounds(439, 54, 71, 21);
+		lblTipo.setBounds(439, 66, 71, 21);
 		panel.add(lblTipo);
 		
 		txtTipo = new JTextField();
 		txtTipo.setColumns(10);
-		txtTipo.setBounds(476, 54, 86, 20);
+		txtTipo.setBounds(476, 66, 86, 20);
 		panel.add(txtTipo);
 		
 		JPanel panelNacimiento = new JPanel();
 		panelNacimiento.setBorder(new TitledBorder(null, "Datos de Nacimiento", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelNacimiento.setBounds(24, 99, 538, 109);
+		panelNacimiento.setBounds(24, 122, 538, 109);
 		panel.add(panelNacimiento);
 		panelNacimiento.setLayout(null);
 		
@@ -178,11 +177,6 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener {
 		txtPais.setColumns(10);
 		txtPais.setBounds(424, 59, 86, 20);
 		panelNacimiento.add(txtPais);
-		
-		btnAgregarMascotas = new JButton("Agregar Mascotas");
-		btnAgregarMascotas.setBounds(364, 219, 190, 23);
-		btnAgregarMascotas.addActionListener(this);
-		panel.add(btnAgregarMascotas);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(24, 253, 538, 12);
@@ -264,12 +258,6 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener {
 				}
 				
 			}
-		}
-		
-		
-		else if (e.getSource()==btnAgregarMascotas) {
-			RegistrarMascotasGui ventanaGestionMascotas=new RegistrarMascotasGui(null, true,txtDocumento.getText());
-			ventanaGestionMascotas.setVisible(true);
 		}
 		
 		else if ( e.getSource()  == btnCancelar ) {		

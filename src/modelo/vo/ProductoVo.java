@@ -20,7 +20,7 @@ public class ProductoVo {
 		return idProducto;
 	}
 
-	public void setIdProducto(Long idProducto) {
+	public void setIdProducto(long idProducto) {
 		this.idProducto = idProducto;
 	}
 

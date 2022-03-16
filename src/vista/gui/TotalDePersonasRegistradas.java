@@ -69,7 +69,6 @@ public class TotalDePersonasRegistradas extends JDialog implements ActionListene
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource()==btnConsultarTodasLasPersonas) {
 			ArrayList<PersonaVo> persona=miCoordinador.consultarTodasLasPersonas();
-	
 			AreaResultado.setText(""+persona);
 		}
 		else if(e.getSource()==btnLimpiar) {

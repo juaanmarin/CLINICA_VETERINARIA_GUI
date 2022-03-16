@@ -189,23 +189,28 @@ public class PersonaDao {
 					
 					miNacimiento =new NacimientoVo();
 					miNacimiento.setIdNacimiento(Long.parseLong(result.getString("nacimiento_id")));
+					miNacimiento=miCoordinador.consultarNacimiento(miNacimiento.getIdNacimiento());
+					miNacimiento.setFechaNacimiento(miNacimiento.getFechaNacimiento());
+					miNacimiento.setCiudadNacimiento(miNacimiento.getCiudadNacimiento());
+					miNacimiento.setDepartamentoNacimiento(miNacimiento.getDepartamentoNacimiento());
+					miNacimiento.setPaisNacimiento(miNacimiento.getPaisNacimiento());
+					
 					miPersona.setNacimiento(miNacimiento);	
-					System.out.println(miNacimiento);
 					todosLosDatos.add(miPersona);
 				}
 				
-			
 			}
 			else {
 				miPersona=null;
 			}
 			
-		} catch (SQLException e) {
+		}
+		catch (SQLException e) {
 			System.out.println("Error en traer toda la lista de personas" +e.getMessage());
 		}
 		finally {
 			miConexion.desconectar();
-			System.out.println();
+			System.out.println(todosLosDatos);
 		}
 		
 		return todosLosDatos;
@@ -246,7 +251,6 @@ public class PersonaDao {
 		}
 		finally {
 			conexion.desconectar();
-			System.out.println();
 		}
 		return resultado;
 	}

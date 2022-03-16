@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controlador.Coordinador;
+import modelo.dao.MascotaDao;
 import modelo.vo.MascotaVo;
 import modelo.vo.PersonaVo;
 
@@ -159,21 +160,63 @@ public class ConsultarMascotasGui extends JDialog implements ActionListener{
 		
 		else if(e.getSource() == btnActualizar) {
 			
+			if(textDocumnto.getText().equals("") || textNombre.getText().equals("") || textNombreId.getText().equals("") || textColor.getText().equals("") || textRaza.getText().equals("") || textSexo.getText().equals("")) {
+				
+				
+				JOptionPane.showMessageDialog(null,"Por favor llene todos los campos","Campos incompletos",JOptionPane.INFORMATION_MESSAGE);
+
+			}
+			else {
+				String nombre = textNombreId.getText();
+				long idLong = Long.parseLong(textDocumnto.getText());
+				
+				MascotaVo miMascota = new MascotaVo();
+				
+				miMascota.setNombre(textNombre.getText());
+				miMascota.setRaza(textRaza.getText());
+				miMascota.setColorMascota(textColor.getText());
+				miMascota.setSexo(textSexo.getText());
+				
+				
+				String resul = miCoordinador.actualizarMascota(miMascota ,idLong, nombre);
+				
+				
+				if (resul.equals("ok")) {
+					JOptionPane.showMessageDialog(null, "Actualización Exitosa!");
+					limpiar();
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "No se pudo Actualizacion el Nacimiento" ,"ERROR" ,JOptionPane.ERROR_MESSAGE );
+				}
+			}
+			
 		}
+		
+		
 		
 		else if(e.getSource() == btnEliminar){
 			
-			String nombre = textNombreId.getText();
-			long idLong = Long.parseLong(textDocumnto.getText());
-			
-			String resul = miCoordinador.eliminarMascota(idLong, nombre);
-			
-			if(resul.equals("ok")) {
-				JOptionPane.showMessageDialog(null, "Eliminacion Exitosa!");
-				limpiar();
-			}else {
-				JOptionPane.showMessageDialog(null, "No se pudo Eliminar la Mascota" ,"ERROR" ,JOptionPane.ERROR_MESSAGE );
+			if(textDocumnto.getText().equals("") || textNombre.getText().equals("") || textNombreId.getText().equals("") || textColor.getText().equals("") || textRaza.getText().equals("") || textSexo.getText().equals("")) {
+				
+				JOptionPane.showMessageDialog(null,"Por favor llene todos los campos","Campos incompletos",JOptionPane.INFORMATION_MESSAGE);
+
 			}
+			else {
+				
+				String nombre = textNombreId.getText();
+				long idLong = Long.parseLong(textDocumnto.getText());
+				
+				String resul = miCoordinador.eliminarMascota(idLong, nombre);
+				
+				if(resul.equals("ok")) {
+					JOptionPane.showMessageDialog(null, "Eliminacion Exitosa!");
+					limpiar();
+				}else {
+					JOptionPane.showMessageDialog(null, "No se pudo Eliminar la Mascota" ,"ERROR" ,JOptionPane.ERROR_MESSAGE );
+				}
+			}
+			
+			
 		}
 		
 	}

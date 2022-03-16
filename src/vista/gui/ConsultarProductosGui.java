@@ -1,6 +1,7 @@
 package vista.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -26,10 +27,13 @@ public class ConsultarProductosGui extends JDialog implements ActionListener{
 	private JTextArea AreaResultado;
 	private JTextField textId;
 	private Coordinador miCoordinador;
+	private JButton btnEliminar;
+	private JButton btnConsultar;
+	private JButton btnCancelar;
 
 	
 	public ConsultarProductosGui() {
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 474, 300);
 		setLocationRelativeTo(null);
 		miPanel = new JPanel();
 		miPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -38,14 +42,14 @@ public class ConsultarProductosGui extends JDialog implements ActionListener{
 		
 		JLabel etiTitulo = new JLabel("Gestion Productos");
 		etiTitulo.setFont(new Font("Tahoma", Font.BOLD, 17));
-		etiTitulo.setBounds(127, 11, 176, 20);
+		etiTitulo.setBounds(150, 11, 176, 20);
 		miPanel.add(etiTitulo);
 		
 		AreaResultado = new JTextArea();
 		AreaResultado.setLineWrap(true);
 		
 		JScrollPane scroll = new JScrollPane(AreaResultado, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		scroll.setBounds(25, 63, 380, 116);
+		scroll.setBounds(25, 63, 405, 116);
 		miPanel.add(scroll);
 		
 		JLabel etiId = new JLabel("Id:");
@@ -58,16 +62,40 @@ public class ConsultarProductosGui extends JDialog implements ActionListener{
 		miPanel.add(textId);
 		textId.setColumns(10);
 		
-		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnEliminar.setBounds(155, 215, 89, 23);
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnEliminar.setBounds(155, 215, 77, 23);
+		btnEliminar.addActionListener(this);
 		miPanel.add(btnEliminar);
+		
+		btnConsultar = new JButton("Consultar");
+		btnConsultar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnConsultar.setBounds(252, 215, 86, 23);
+		btnConsultar.addActionListener(this);
+		miPanel.add(btnConsultar);
+		
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnCancelar.setBounds(344, 215, 86, 23);
+		btnCancelar.addActionListener(this);
+		miPanel.add(btnCancelar);
 	}
 
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		if(e.getSource() == btnConsultar) {
+			
+		}
+		
+		else if(e.getSource() == btnEliminar) {
+			
+		}
+		
+		
+		else if (e.getSource() == btnCancelar) {
+			setVisible(false);
+		}
 		
 	}
 	
@@ -77,5 +105,4 @@ public class ConsultarProductosGui extends JDialog implements ActionListener{
 		this.miCoordinador=miCoordinador;
 		
 	}
-
 }

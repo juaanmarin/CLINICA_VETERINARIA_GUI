@@ -10,6 +10,7 @@ import modelo.dao.ProductoDao;
 import modelo.vo.MascotaVo;
 import modelo.vo.NacimientoVo;
 import modelo.vo.PersonaVo;
+import modelo.vo.ProductoVo;
 import vista.gui.ConsultarMascotasGui;
 import vista.gui.ConsultarPersonaGui;
 import vista.gui.ConsultarProductosGui;
@@ -123,6 +124,11 @@ public class Coordinador {
 		miTotalDePersonasRegistradas.setVisible(true);
 	}
 	
+	public void registrarVentanaRegistrarProductos() {
+		
+		miRegistrarProductosGui.setVisible(true);
+	}
+	
 
 	public String registrarPersona(PersonaVo miPersona) {
 		return miPersonaDao.registrarPersona(miPersona);
@@ -181,4 +187,15 @@ public class Coordinador {
 	public String eliminarMascota(Long idDocumento, String nombre) {
 		return miMascotaDao.eliminarMascota(idDocumento, nombre);
 	}
+	
+	public String actualizarMascota(MascotaVo miMascota, long idLong, String nombre) {
+		return miMascotaDao.actualizarMascota(miMascota, idLong, nombre);
+	}
+
+	public String registrarProducto(ProductoVo miProducto, int idUsuario) {
+		
+		return miProductoDao.registrarProductos(miProducto, idUsuario);
+	}
+
+
 }

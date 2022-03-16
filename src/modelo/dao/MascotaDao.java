@@ -182,5 +182,55 @@ public class MascotaDao {
 		}
 		return resultado;
 	}
+	
+	public String actualizarMascota(MascotaVo miMascota,long idLong, String nombre) {
+		String resultado = "";
+		
+		Connection connection = null;
+		Conexion conexion = new Conexion();
+		PreparedStatement preStatement = null;
+		
+		connection = conexion.getConnection();
+		
+		
+		try {
+			String consulta = "UPDATE mascota "
+					+ "SET color = ? , "
+					+ "nombre = ? ,"
+					+ "raza = ? , "
+					+ "sexo = ? "
+					+ "WHERE persona_id = ? and nombre = ? ;";
+			
+			preStatement = connection.prepareStatement(consulta);
+			
+			preStatement.setString(1, miMascota.getColorMascota());
+			preStatement.setString(2, miMascota.getNombre());
+			preStatement.setString(3, miMascota.getRaza());
+			preStatement.setString(4, miMascota.getSexo());
+			
+			preStatement.setLong(5, idLong);
+			preStatement.setString(6, nombre);
+			System.out.println("XXXXXXXXXXXXX"+idLong+ ""+ nombre +"XXXXXXXXXXXXXXX");
+			preStatement.executeUpdate();
+			
+			resultado = "ok";
+			
+		} catch (SQLException e) {
+			System.out.println("no se pudo Actualizar la mascota, verifique el documento no existe: "+ e.getMessage());
+			e.printStackTrace();
+			resultado = "No se pudo Actualizar la mascota";
+		}
+		catch (Exception e) {
+			System.out.println("No se pudo Actualizar la mascota: " +e.getMessage());
+			e.printStackTrace();
+			resultado = "No se pudo Actualizar la mascota";
+		}
+		finally {
+			conexion.desconectar();
+		}
+		return resultado;
+	}
+	
+	
 
 }
