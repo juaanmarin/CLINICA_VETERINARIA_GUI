@@ -21,6 +21,7 @@ import java.awt.Font;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.time.LocalDate;
 
 import javax.swing.JTextField;
@@ -59,6 +60,7 @@ public class ConsultarPersonaGui extends JDialog implements ActionListener {
 	private JButton btnCancelar;
 	private JButton btnActualizar;
 	private JButton btnEliminar;
+	private NacimientoVo NacimientoVo;
 	
 	
 	public ConsultarPersonaGui() {
@@ -208,6 +210,7 @@ public class ConsultarPersonaGui extends JDialog implements ActionListener {
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnCancelar.setBounds(457, 355, 102, 25);
+		btnCancelar.addActionListener(this);
 		getContentPane().add(btnCancelar);
 		
 		btnActualizar = new JButton("Actualizar");
@@ -219,6 +222,7 @@ public class ConsultarPersonaGui extends JDialog implements ActionListener {
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnEliminar.setBounds(350, 355, 95, 23);
+		btnEliminar.addActionListener(this);
 		getContentPane().add(btnEliminar);
 	}
 	
@@ -253,47 +257,92 @@ public class ConsultarPersonaGui extends JDialog implements ActionListener {
 
 		
 		else if (e.getSource() == btnActualizar) {
+			int id = Integer.parseInt(textDocumento.getText());
+			long idLong = Long.parseLong(textDocumento.getText());
+			NacimientoVo numeroID = miCoordinador.obtenerIdNacimiento(id);
+			
+			Long idUsuario = numeroID.getIdNacimiento();
+			
 			PersonaVo miPersona=new PersonaVo();
 			miPersona.setNombre(textNombre.getText());
 			miPersona.setProfesion(textProfesion.getText());
 			miPersona.setTelefono(textTelefono.getText());
 			miPersona.setTipo(Integer.parseInt(textTipo.getText()));
+			miPersona.setIdPersona(idLong);
 			
-
 			NacimientoVo miNacimiento=new NacimientoVo();
 			miNacimiento.setCiudadNacimiento(textCiudad.getText());
 			miNacimiento.setDepartamentoNacimiento(textDepartamento.getText());
 			miNacimiento.setPaisNacimiento(textPais.getText());
+			miNacimiento.setIdNacimiento(idUsuario);
 			miNacimiento.setFechaNacimiento(LocalDate.of(Integer.parseInt(textAnio.getText()),
 			Integer.parseInt(textMes.getText()), Integer.parseInt(textDia.getText())));
-			
-
 			miPersona.setNacimiento(miNacimiento);
 			
-			Long idNacimiento=miCoordinador.actualizarNacimiento(miPersona);
-			if (idNacimiento!=null) {
-				
+			String idNacimiento = miCoordinador.actualizarNacimiento(miPersona);
+			
+			
+			String resp = miCoordinador.actualizarPersona(miPersona);
+		
 
-				miPersona.getNacimiento().setIdNacimiento(idNacimiento);
-				
-
-				String res=miCoordinador.actualizarPersona(miPersona);
-				if (res.equals("ok")) {
+			if (idNacimiento.equals("ok")) {
 					JOptionPane.showMessageDialog(null, "Actualización Exitosa!");
-				}else {
-					JOptionPane.showMessageDialog(null,res+", verifique si el documento esta DUPLICADO","ERROR",JOptionPane.ERROR_MESSAGE );
-				}
+					limpiar();
 			}
 			else {
-				JOptionPane.showMessageDialog(null, "No se pudo registrar el Nacimiento" ,"ERROR" ,JOptionPane.ERROR_MESSAGE );
+				JOptionPane.showMessageDialog(null, "No se pudo Actualizacion el Nacimiento" ,"ERROR" ,JOptionPane.ERROR_MESSAGE );
 			}
 		}
 		
+		
+		
 		else if (e.getSource() == btnEliminar) {
-			System.out.println("Eliminar");
+			
+			int id = Integer.parseInt(textDocumento.getText());
+			long idLong = Long.parseLong(textDocumento.getText());
+			NacimientoVo numeroID = miCoordinador.obtenerIdNacimiento(id);
+			
+			Long idUsuario = numeroID.getIdNacimiento();
+			
+			String eliMascota = miCoordinador.eliminarMascota(idLong);
+			
+			String resp = miCoordinador.eliminarPersona(idLong);
+			
+			String idNacimiento = miCoordinador.eliminarNacimiento(idUsuario);
+			
+			
+			if (idNacimiento.equals("ok")) {
+					JOptionPane.showMessageDialog(null, "Eliminacion Exitosa!");
+					limpiar();
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "No se pudo Eliminar el Nacimiento" ,"ERROR" ,JOptionPane.ERROR_MESSAGE );
+			}
 		}
-
+		
+		else if (e.getSource() == btnCancelar) {
+			setVisible(false);
+		}
+		
+		
 	}
+	
+	private void limpiar() {
+		textDocumento.setText("");
+		textNombre.setText("");
+		textTelefono.setText("");
+		textProfesion.setText("");
+		textTipo.setText("");
+		textDia.setText("");
+		textAnio.setText("");
+		textMes.setText("");
+		textCiudad.setText("");
+		textDepartamento.setText("");
+		textPais.setText("");
+	}
+		
+
+	
 	
 	public void setCoordinador(Coordinador miCoordinador) {
 		this.miCoordinador=miCoordinador;

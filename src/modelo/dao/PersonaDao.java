@@ -108,7 +108,7 @@ public class PersonaDao {
 		return miPersona;
 	}
 
-	public String ActualizarPersona(PersonaVo miPersona) {
+	public String actualizarPersona(PersonaVo miPersona) {
 		String resultado = "";
 		
 		Connection connection = null;
@@ -116,23 +116,25 @@ public class PersonaDao {
 		PreparedStatement preStatement = null;
 		
 		connection = conexion.getConnection();
-		String consulta = "UPDATE persona "
-				+ "SET nombre_persona = ? , "
-				+ "profesion_persona = ? ,"
-				+ "telefono_persona = ? , "
-				+ "tipo_persona = ? ,"
-				+ "nacimiento_id=?"
-				+ "WHERE id_persona = ?;";
+		
 		
 		try {
+			String consulta = "UPDATE persona "
+					+ "SET nombre_persona = ? , "
+					+ "profesion_persona = ? ,"
+					+ "telefono_persona = ? , "
+					+ "tipo_persona = ? "
+					+ "WHERE id_persona = ?;";
+			
 			preStatement = connection.prepareStatement(consulta);
+			
 			preStatement.setString(1, miPersona.getNombre());
 			preStatement.setString(2, miPersona.getProfesion());
 			preStatement.setString(3, miPersona.getTelefono());
 			preStatement.setInt(4, miPersona.getTipo());
-			preStatement.setLong(5, miPersona.getNacimiento().getIdNacimiento());
 			
-			preStatement.setLong(6, miPersona.getIdPersona());
+			preStatement.setLong(5, miPersona.getIdPersona());
+			System.out.println("XXXXXXXXXXXXX"+miPersona.getIdPersona()+"XXXXXXXXXXXXXXX");
 			preStatement.executeUpdate();
 			
 			resultado = "ok";
@@ -188,21 +190,65 @@ public class PersonaDao {
 					miNacimiento =new NacimientoVo();
 					miNacimiento.setIdNacimiento(Long.parseLong(result.getString("nacimiento_id")));
 					miPersona.setNacimiento(miNacimiento);	
+					System.out.println(miNacimiento);
 					todosLosDatos.add(miPersona);
 				}
 				
-				miConexion.desconectar();
+			
 			}
 			else {
 				miPersona=null;
 			}
 			
 		} catch (SQLException e) {
-			System.out.println("Error en la consulta de la persona" +e.getMessage());
+			System.out.println("Error en traer toda la lista de personas" +e.getMessage());
+		}
+		finally {
+			miConexion.desconectar();
+			System.out.println();
 		}
 		
 		return todosLosDatos;
 	
+	}
+
+	public String eliminarPersona(long idLong) {
+		String resultado = "";
+		
+		Connection connection = null;
+		Conexion conexion = new Conexion();
+		PreparedStatement preStatement = null;
+		
+		connection = conexion.getConnection();
+		
+		
+		try {
+			String consulta = "DELETE FROM persona WHERE id_persona = ?";
+			
+			preStatement = connection.prepareStatement(consulta);
+			
+			
+			preStatement.setLong(1, idLong);
+			System.out.println("XXXXXXXXXXXXX"+idLong+"XXXXXXXXXXXXXXX");
+			preStatement.executeUpdate();
+			
+			resultado = "ok";
+			
+		} catch (SQLException e) {
+			System.out.println("no se pudo eliminar la persona, verifique el documento no existe: "+ e.getMessage());
+			e.printStackTrace();
+			resultado = "No se pudo eliminar la persona";
+		}
+		catch (Exception e) {
+			System.out.println("No se pudo eliminar la persona: " +e.getMessage());
+			e.printStackTrace();
+			resultado = "No se pudo eliminar la persona";
+		}
+		finally {
+			conexion.desconectar();
+			System.out.println();
+		}
+		return resultado;
 	}
 
 }

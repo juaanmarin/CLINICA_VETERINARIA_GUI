@@ -138,9 +138,9 @@ public class Coordinador {
 	}
 
 	public NacimientoVo consultarNacimiento(long idNacimiento) {
-		
 		return NacimientoDao.consultarNacimiento(idNacimiento);
 	}
+	
 	public ArrayList<PersonaVo> consultarTodasLasPersonas() {
 		return miPersonaDao.consultarTodasLasPersonas();
 	}
@@ -150,21 +150,35 @@ public class Coordinador {
 	}
 
 	public String actualizarPersona(PersonaVo miPersona) {
-		return miPersonaDao.ActualizarPersona(miPersona);
+		return miPersonaDao.actualizarPersona(miPersona);
 	}
 
-	public Long actualizarNacimiento(NacimientoVo miPersona) {
-		return miNacimientoDao.actualizarNacimiento(miPersona);
+	public String actualizarNacimiento(PersonaVo miPersona) {
+		return miNacimientoDao.actualizarNacimiento(miPersona.getNacimiento());
+	}
+
+	public NacimientoVo obtenerIdNacimiento(int id) {
+		return miNacimientoDao.obtenerIdNacimiento(id);
+		
 	}
 	
-
+	public String eliminarPersona(long idLong) {
+		return miPersonaDao.eliminarPersona(idLong);
+	}
 	
-
+	public String eliminarNacimiento(Long idUsuario) {
+		return miNacimientoDao.eliminarNacimiento(idUsuario);
+	}
 	
+	public String eliminarMascota(Long idPersona) {
+		return miMascotaDao.eliminarMascota(idPersona);
+	}
 
+	public MascotaVo setConsultarMascota(Long idDocumento, String nombreMas) {
+		return miMascotaDao.consultarMascota(idDocumento, nombreMas);
+	}
 	
-	
-
-	
-
+	public String eliminarMascota(Long idDocumento, String nombre) {
+		return miMascotaDao.eliminarMascota(idDocumento, nombre);
+	}
 }

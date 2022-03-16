@@ -21,7 +21,7 @@ PRIMARY KEY (id_nacimiento)
 );
 
 CREATE TABLE mascota(
-id_mascota bigint(20) PRIMARY KEY NOT NULL,
+id_mascota bigint(20) PRIMARY KEY NOT NULL AUTO_INCREMENT,
 color VARCHAR(45),
 nombre VARCHAR (45),
 raza VARCHAR (45),

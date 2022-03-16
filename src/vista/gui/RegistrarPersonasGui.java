@@ -213,48 +213,56 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener {
 			
 				//capturamos los datos de la persona
 				PersonaVo miPersona=new PersonaVo();
-				miPersona.setIdPersona(Long.parseLong(txtDocumento.getText()));
-				miPersona.setNombre(txtNombre.getText());
-				miPersona.setProfesion(txtProfesion.getText());
-				miPersona.setTelefono(txtTelefono.getText());
-				miPersona.setTipo(Integer.parseInt(txtTipo.getText()));
-				
-				//Capturamos los datos de Nacimiento
-				NacimientoVo miNacimiento=new NacimientoVo();
-				miNacimiento.setCiudadNacimiento(txtCiudad.getText());
-				miNacimiento.setDepartamentoNacimiento(txtDepartamento.getText());
-				miNacimiento.setPaisNacimiento(txtPais.getText());
-				miNacimiento.setFechaNacimiento(LocalDate.of(Integer.parseInt(txtAnio.getText()),
-				Integer.parseInt(txtMes.getText()), Integer.parseInt(txtDia.getText())));
-				
-				//Asignamos el objeto miNacimiento a la persona
-				miPersona.setNacimiento(miNacimiento);
-				
-				
-				/* Primero realizamos la inserción de Nacimiento ya que la tabla
-				* persona tiene la llave foranea donde se agrega el id del nacimiento, por
-				Lenguaje Java
-				Instructor: Cristian David Henao H.
-				* eso para poder agregar dicho id el nacimiento tiene que existir
-				*/
-				
-				Long idNacimiento=miCoordinador.registrarNacimiento(miPersona);
-				if (idNacimiento!=null) {
+				PersonaVo resp = miCoordinador.setConsultarPersona(Long.parseLong(txtDocumento.getText()));
+				if ( resp == null ) {
+					miPersona.setIdPersona(Long.parseLong(txtDocumento.getText()));
+					miPersona.setNombre(txtNombre.getText());
+					miPersona.setProfesion(txtProfesion.getText());
+					miPersona.setTelefono(txtTelefono.getText());
+					miPersona.setTipo(Integer.parseInt(txtTipo.getText()));
 					
-					//se asigna el id del nacimiento al objeto de nacimiento de la persona
-					miPersona.getNacimiento().setIdNacimiento(idNacimiento);
+					//Capturamos los datos de Nacimiento
+					NacimientoVo miNacimiento=new NacimientoVo();
+					miNacimiento.setCiudadNacimiento(txtCiudad.getText());
+					miNacimiento.setDepartamentoNacimiento(txtDepartamento.getText());
+					miNacimiento.setPaisNacimiento(txtPais.getText());
+					miNacimiento.setFechaNacimiento(LocalDate.of(Integer.parseInt(txtAnio.getText()),
+					Integer.parseInt(txtMes.getText()), Integer.parseInt(txtDia.getText())));
 					
-					//despues de verificar que se registró el nacimiento, procedemos a registrar la persona
-					String res=miCoordinador.registrarPersona(miPersona);
-					if (res.equals("ok")) {
-						JOptionPane.showMessageDialog(null, "Registro Exitoso!");
-					}else {
-						JOptionPane.showMessageDialog(null,res+", verifique si el documento esta DUPLICADO","ERROR",JOptionPane.ERROR_MESSAGE );
+					//Asignamos el objeto miNacimiento a la persona
+					miPersona.setNacimiento(miNacimiento);
+					
+					
+					/* Primero realizamos la inserciï¿½n de Nacimiento ya que la tabla
+					* persona tiene la llave foranea donde se agrega el id del nacimiento, por
+					Lenguaje Java
+					Instructor: Cristian David Henao H.
+					* eso para poder agregar dicho id el nacimiento tiene que existir
+					*/
+					
+					Long idNacimiento=miCoordinador.registrarNacimiento(miPersona);
+					if (idNacimiento!=null) {
+						
+						//se asigna el id del nacimiento al objeto de nacimiento de la persona
+						miPersona.getNacimiento().setIdNacimiento(idNacimiento);
+						
+						//despues de verificar que se registrï¿½ el nacimiento, procedemos a registrar la persona
+						String res=miCoordinador.registrarPersona(miPersona);
+						if (res.equals("ok")) {
+							JOptionPane.showMessageDialog(null, "Registro Exitoso!");
+							limpiar();
+						}else {
+							JOptionPane.showMessageDialog(null,res+", verifique si el documento esta DUPLICADO","ERROR",JOptionPane.ERROR_MESSAGE );
+						}
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "No se pudo registrar el Nacimiento" ,"ERROR" ,JOptionPane.ERROR_MESSAGE );
 					}
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "No se pudo registrar el Nacimiento" ,"ERROR" ,JOptionPane.ERROR_MESSAGE );
+					JOptionPane.showMessageDialog(null,"ADVERTENCIA: "+"Lo sentimos, el documento esta DUPLICADO","ERROR",JOptionPane.ERROR_MESSAGE );
 				}
+				
 			}
 		}
 		
@@ -267,6 +275,20 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener {
 		else if ( e.getSource()  == btnCancelar ) {		
 			setVisible(false);
 		}
+	}
+	
+	private void limpiar() {
+		txtDocumento.setText("");
+		txtNombre.setText("");
+		txtTelefono.setText("");
+		txtProfesion.setText("");
+		txtTipo.setText("");
+		txtDia.setText("");
+		txtMes.setText("");
+		txtAnio.setText("");
+		txtCiudad.setText("");
+		txtDepartamento.setText("");
+		txtPais.setText("");
 	}
 
 

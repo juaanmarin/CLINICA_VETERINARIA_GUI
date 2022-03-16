@@ -143,21 +143,30 @@ public class RegistrarMascotasGui extends JDialog implements ActionListener {
 				miMascota.setIdMascota(Long.parseLong(txtIdDueno.getText()));
 				miMascota.setNombre(txtNombre.getText());
 				miMascota.setRaza(txtRaza.getText());
-				miMascota.setSexo(comboBox.getActionCommand());
-				miMascota.setColorMascota(comboBox_1.getActionCommand());
+				miMascota.setSexo((String)comboBox.getSelectedItem());
+				miMascota.setColorMascota((String)comboBox_1.getSelectedItem());
 				
 				
 				String res=miCoordinador.registrarMascota(miMascota);
 				if (res.equals("ok")) {
 					JOptionPane.showMessageDialog(null, "Registro Exitoso!");
+					limpiar();
 				}else {
 					JOptionPane.showMessageDialog(null,res+", verifique que el documento se encuentre registrado","ERROR",JOptionPane.ERROR_MESSAGE );
 				}
 			}
-			
-			
+		}
+		
+		else if ( e.getSource()  == btnCancelar ) {		
+			setVisible(false);
 		}
 	
+	}
+	
+	public void limpiar() {
+		txtIdDueno.setText("");
+		txtNombre.setText("");
+		txtRaza.setText("");
 	}
 
 
