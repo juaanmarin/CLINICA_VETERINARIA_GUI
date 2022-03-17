@@ -144,17 +144,19 @@ public class RegistrarProductosGui extends JDialog implements ActionListener {
 				miProducto.setNombreProducto(txtNombre.getText());
 				miProducto.setPrecioProducto(Double.parseDouble(txtPrecio.getText()));
 				
+				String veri = miCoordinador.comprobarIdUsuario(id);
 				
-				
-				System.out.println("antes");
-				String res = miCoordinador.registrarProducto(miProducto, id);
-				System.out.println("despues");
-				
-				if (res.equals("ok")) {
-					JOptionPane.showMessageDialog(null, "Registro Exitoso!");
-					limpiar();
+				if ( veri.equals("ok") ) {
+					String res = miCoordinador.registrarProducto(miProducto, id);
+					
+					if (res.equals("ok")) {
+						JOptionPane.showMessageDialog(null, "Registro Exitoso!");
+						limpiar();
+					}else {
+						JOptionPane.showMessageDialog(null,"El ID del producto ya está registrado, intente con otro número","ERROR",JOptionPane.ERROR_MESSAGE );
+					}
 				}else {
-					JOptionPane.showMessageDialog(null,res+", verifique que el documento se encuentre registrado","ERROR",JOptionPane.ERROR_MESSAGE );
+					JOptionPane.showMessageDialog(null,"El documento no está registrado","ERROR",JOptionPane.ERROR_MESSAGE );
 				}
 
 			}

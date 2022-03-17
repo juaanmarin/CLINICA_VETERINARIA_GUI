@@ -45,7 +45,7 @@ precio_producto DOUBLE
 ALTER TABLE mascota ADD CONSTRAINT FK_mascota_persona FOREIGN KEY (persona_id) REFERENCES persona (id_persona);
 
 ALTER TABLE personas_productos ADD CONSTRAINT FK_personasProductos_persona FOREIGN KEY (persona_id) REFERENCES persona (id_persona);
-ALTER TABLE personas_productos ADD CONSTRAINT FK_personasProductos_productos FOREIGN KEY (producto_id) REFERENCES productos (id_producto);
+ALTER TABLE personas_productos ADD CONSTRAINT FK_personasProductos_productos FOREIGN KEY (producto_id) REFERENCES productos (id_producto) ON DELETE CASCADE;
 
 ALTER TABLE persona ADD INDEX fk_persona_nacimiento (nacimiento_id ASC);
 ;

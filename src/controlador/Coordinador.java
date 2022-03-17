@@ -2,6 +2,8 @@ package controlador;
 
 import java.util.ArrayList;
 
+import java.util.ArrayList;
+
 import modelo.dao.MascotaDao;
 import modelo.dao.NacimientoDao;
 import modelo.dao.PersonaDao;
@@ -197,9 +199,28 @@ public class Coordinador {
 		return miProductoDao.registrarProductos(miProducto, idUsuario);
 	}
 
+	public String comprobarIdUsuario(int id) {
+		return miProductoDao.idUsuario(id);
+	}
+	
+	public String eliminarProducto(Long idPersona) {
+		return miProductoDao.eliminarProducto(idPersona);
+	}
+
+	public String eliminarTablaProducto(ArrayList<Long> lista) {
+		return miProductoDao.eliminarTablaProductos(lista);
+	}
+
+	public ArrayList<Long> obtenerProductoId(int id) {
+		return miProductoDao.buscarIdProducto(id);
+	}
+
 	public ArrayList<ProductoVo> consultarTodosLosProductos() {
 		return miProductoDao.consultarTodosLosProductos();
 	}
 
+	public String eliminarunProducto(int idproducto) {
+		return miProductoDao.eliminarUnProducto(idproducto);
+	}	
 
 }

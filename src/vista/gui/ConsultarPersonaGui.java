@@ -23,6 +23,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -237,7 +238,7 @@ public class ConsultarPersonaGui extends JDialog implements ActionListener {
 			if (p!=null) {
 				
 				p.setNacimiento(miCoordinador.consultarNacimiento(p.getNacimiento().getIdNacimiento()));
-				System.out.println(p);				
+				
 				textNombre.setText(p.getNombre());
 				textProfesion.setText(p.getProfesion());
 				textTelefono.setText(p.getTelefono());
@@ -293,38 +294,38 @@ public class ConsultarPersonaGui extends JDialog implements ActionListener {
 				JOptionPane.showMessageDialog(null, "No se pudo Actualizacion el Nacimiento" ,"ERROR" ,JOptionPane.ERROR_MESSAGE );
 			}
 		}
-		
-		
-		
+			
 		else if (e.getSource() == btnEliminar) {
 			
 			int id = Integer.parseInt(textDocumento.getText());
+			
+			ArrayList<Long> lista = miCoordinador.obtenerProductoId(id);
+			
 			long idLong = Long.parseLong(textDocumento.getText());
 			NacimientoVo numeroID = miCoordinador.obtenerIdNacimiento(id);
 			
-			Long idUsuario = numeroID.getIdNacimiento();
+			Long idUsuario = numeroID.getIdNacimiento();		
 			
 			String eliMascota = miCoordinador.eliminarMascota(idLong);
+			
+			String eliminar = miCoordinador.eliminarTablaProducto(lista);
+			
+			String eliminarProd= miCoordinador.eliminarProducto(idLong);
 			
 			String resp = miCoordinador.eliminarPersona(idLong);
 			
 			String idNacimiento = miCoordinador.eliminarNacimiento(idUsuario);
-			
-			
+					
 			if (idNacimiento.equals("ok")) {
 					JOptionPane.showMessageDialog(null, "Eliminacion Exitosa!");
 					limpiar();
-			}
-			else {
+			}else {
 				JOptionPane.showMessageDialog(null, "No se pudo Eliminar el Nacimiento" ,"ERROR" ,JOptionPane.ERROR_MESSAGE );
 			}
-		}
-		
+		}	
 		else if (e.getSource() == btnCancelar) {
 			setVisible(false);
-		}
-		
-		
+		}	
 	}
 	
 	private void limpiar() {
@@ -341,9 +342,6 @@ public class ConsultarPersonaGui extends JDialog implements ActionListener {
 		textPais.setText("");
 	}
 		
-
-	
-	
 	public void setCoordinador(Coordinador miCoordinador) {
 		this.miCoordinador=miCoordinador;
 	}

@@ -18,7 +18,6 @@ public class MascotaDao {
 	public void setCoordinador(Coordinador miCoordinador) {
 		this.miCoordinador=miCoordinador;
 	}
-
 	
 	public String registrarMascota(MascotaVo miMascota) {
 		
@@ -31,8 +30,7 @@ public class MascotaDao {
 		connection = conexion.getConnection();
 		String consulta = "INSERT INTO mascota(color,nombre,raza,sexo,persona_id)"
 				+ " VALUES (?,?,?,?,?)";
-		
-		
+			
 		try {
 			preStatement = connection.prepareStatement(consulta);
 			preStatement.setString(1, miMascota.getColorMascota());
@@ -43,8 +41,7 @@ public class MascotaDao {
 			preStatement.execute();
 			
 			resultado = "ok";
-			
-			
+						
 		} catch (SQLException e) {
 			System.out.println("no se pudo registrar la Mascota, verifique la mascota no existe: "+ e.getMessage());
 			e.printStackTrace();
@@ -76,12 +73,8 @@ public class MascotaDao {
 			String consulta = "DELETE FROM mascota WHERE persona_id = ?";
 			
 			preStatement = connection.prepareStatement(consulta);
-			
-			
 			preStatement.setLong(1, idPersona);
-			System.out.println("XXXXXXXXXXXXX"+"MASCOTA:  "+idPersona+"XXXXXXXXXXXXXXX");
-			preStatement.executeUpdate();
-			
+			preStatement.executeUpdate();		
 			resultado = "ok";
 			
 		} catch (SQLException e) {
@@ -113,7 +106,7 @@ public class MascotaDao {
 		connection=miConexion.getConnection();
 		
 		String consulta="SELECT * FROM mascota where persona_id= ? and nombre= ?";
-		System.out.println("*********************************************");
+		
 		try {
 			if(connection!=null) {
 				statement=connection.prepareStatement(consulta);
@@ -129,18 +122,15 @@ public class MascotaDao {
 					miMascota.setColorMascota(result.getString("color"));
 					miMascota.setRaza(result.getString("raza"));
 					miMascota.setSexo(result.getString("sexo"));
-				}
-				
+				}				
 				miConexion.desconectar();
 			}
 			else {
 				miMascota=null;
-			}
-			
+			}			
 		} catch (SQLException e) {
 			System.out.println("Error en la consulta de la persona" +e.getMessage());
-		}
-		
+		}	
 		return miMascota;
 	}
 
@@ -151,20 +141,16 @@ public class MascotaDao {
 		Conexion conexion = new Conexion();
 		PreparedStatement preStatement = null;
 		
-		connection = conexion.getConnection();
-		
+		connection = conexion.getConnection();		
 		
 		try {
 			String consulta = "DELETE FROM mascota WHERE persona_id = ? and nombre = ?";
 			
 			preStatement = connection.prepareStatement(consulta);
 			
-			
 			preStatement.setLong(1, idLong);
 			preStatement.setString(2, nombre);
-			System.out.println("XXXXXXXXXXXXX"+idLong+ ""+ nombre+ "XXXXXXXXXXXXXXX");
-			preStatement.executeUpdate();
-			
+			preStatement.executeUpdate();		
 			resultado = "ok";
 			
 		} catch (SQLException e) {
@@ -190,8 +176,7 @@ public class MascotaDao {
 		Conexion conexion = new Conexion();
 		PreparedStatement preStatement = null;
 		
-		connection = conexion.getConnection();
-		
+		connection = conexion.getConnection();	
 		
 		try {
 			String consulta = "UPDATE mascota "
@@ -201,18 +186,14 @@ public class MascotaDao {
 					+ "sexo = ? "
 					+ "WHERE persona_id = ? and nombre = ? ;";
 			
-			preStatement = connection.prepareStatement(consulta);
-			
+			preStatement = connection.prepareStatement(consulta);			
 			preStatement.setString(1, miMascota.getColorMascota());
 			preStatement.setString(2, miMascota.getNombre());
 			preStatement.setString(3, miMascota.getRaza());
-			preStatement.setString(4, miMascota.getSexo());
-			
+			preStatement.setString(4, miMascota.getSexo());		
 			preStatement.setLong(5, idLong);
 			preStatement.setString(6, nombre);
-			System.out.println("XXXXXXXXXXXXX"+idLong+ ""+ nombre +"XXXXXXXXXXXXXXX");
 			preStatement.executeUpdate();
-			
 			resultado = "ok";
 			
 		} catch (SQLException e) {
@@ -230,7 +211,4 @@ public class MascotaDao {
 		}
 		return resultado;
 	}
-	
-	
-
 }

@@ -11,10 +11,11 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 import controlador.Coordinador;
-import modelo.vo.PersonaVo;
 import modelo.vo.ProductoVo;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -93,20 +94,34 @@ public class ConsultarProductosGui extends JDialog implements ActionListener{
 		}
 		
 		else if(e.getSource() == btnEliminar) {
-			
+			if(textId.getText().equals("")) {
+				JOptionPane.showMessageDialog(null,"Por favor dijite el id del producto para elminar","Campo incompleto",JOptionPane.INFORMATION_MESSAGE);
+			}else {				
+				int idproducto =Integer.parseInt(textId.getText());
+				
+				String resul = miCoordinador.eliminarunProducto(idproducto);
+				
+				if(resul.equals("ok")) {
+					limpiar();
+					JOptionPane.showMessageDialog(null, "Eliminacion Exitosa!");
+					
+				}else {
+					JOptionPane.showMessageDialog(null, "No se pudo Eliminar el producto" ,"ERROR" ,JOptionPane.ERROR_MESSAGE );
+				}
+			}			
 		}
-		
 		
 		else if (e.getSource() == btnCancelar) {
 			setVisible(false);
-		}
-		
+		}	
 	}
 	
-	
+	private void limpiar() {
+		textId.setText("");
+		AreaResultado.setText("");
+	}
 	
 	public void setCoordinador(Coordinador miCoordinador) {
 		this.miCoordinador=miCoordinador;
-		
 	}
 }
