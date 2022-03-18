@@ -74,6 +74,7 @@ public class PersonaDao {
 		connection=miConexion.getConnection();
 		
 		String consulta="SELECT * FROM persona where id_persona= ? ";
+		System.out.println("*********************************************");
 		try {
 			if(connection!=null) {
 				statement=connection.prepareStatement(consulta);
@@ -83,7 +84,8 @@ public class PersonaDao {
 				while(result.next()==true){
 					miPersona=new PersonaVo();
 					miPersona.setIdPersona(result.getLong("id_persona"));
-					miPersona.setNombre(result.getString("nombre_persona"));				
+					miPersona.setNombre(result.getString("nombre_persona"));
+					
 					miPersona.setProfesion(result.getString("profesion_persona"));
 					miPersona.setTelefono(result.getString("telefono_persona"));
 					miPersona.setTipo(result.getInt("tipo_persona"));
@@ -91,15 +93,18 @@ public class PersonaDao {
 					miNacimiento =new NacimientoVo();
 					miNacimiento.setIdNacimiento(Long.parseLong(result.getString("nacimiento_id")));
 					miPersona.setNacimiento(miNacimiento);	
-				}				
+				}
+				
 				miConexion.desconectar();
-			}else {
+			}
+			else {
 				miPersona=null;
 			}
 			
 		} catch (SQLException e) {
 			System.out.println("Error en la consulta de la persona" +e.getMessage());
-		}	
+		}
+		
 		return miPersona;
 	}
 
@@ -110,7 +115,8 @@ public class PersonaDao {
 		Conexion conexion = new Conexion();
 		PreparedStatement preStatement = null;
 		
-		connection = conexion.getConnection();	
+		connection = conexion.getConnection();
+		
 		
 		try {
 			String consulta = "UPDATE persona "
@@ -120,12 +126,15 @@ public class PersonaDao {
 					+ "tipo_persona = ? "
 					+ "WHERE id_persona = ?;";
 			
-			preStatement = connection.prepareStatement(consulta);		
+			preStatement = connection.prepareStatement(consulta);
+			
 			preStatement.setString(1, miPersona.getNombre());
 			preStatement.setString(2, miPersona.getProfesion());
 			preStatement.setString(3, miPersona.getTelefono());
 			preStatement.setInt(4, miPersona.getTipo());
+			
 			preStatement.setLong(5, miPersona.getIdPersona());
+			System.out.println("XXXXXXXXXXXXX"+miPersona.getIdPersona()+"XXXXXXXXXXXXXXX");
 			preStatement.executeUpdate();
 			
 			resultado = "ok";
@@ -164,13 +173,16 @@ public class PersonaDao {
 		try {
 			if(connection!=null) {
 				statement=connection.prepareStatement(consulta);
+				//statement.setLong(1, idDocumento);
 				result=statement.executeQuery();
 				
 				while(result.next()==true){
 					
 					miPersona=new PersonaVo();
+					
 					miPersona.setIdPersona(result.getLong("id_persona"));
-					miPersona.setNombre(result.getString("nombre_persona"));				
+					miPersona.setNombre(result.getString("nombre_persona"));
+					
 					miPersona.setProfesion(result.getString("profesion_persona"));
 					miPersona.setTelefono(result.getString("telefono_persona"));
 					miPersona.setTipo(result.getInt("tipo_persona"));
@@ -185,18 +197,24 @@ public class PersonaDao {
 					
 					miPersona.setNacimiento(miNacimiento);	
 					todosLosDatos.add(miPersona);
-				}				
-			}else {
+				}
+				
+			}
+			else {
 				miPersona=null;
-			}		
+			}
+			
 		}
 		catch (SQLException e) {
 			System.out.println("Error en traer toda la lista de personas" +e.getMessage());
 		}
 		finally {
 			miConexion.desconectar();
-		}		
-		return todosLosDatos;	
+			System.out.println(todosLosDatos);
+		}
+		
+		return todosLosDatos;
+	
 	}
 
 	public String eliminarPersona(long idLong) {
@@ -206,13 +224,17 @@ public class PersonaDao {
 		Conexion conexion = new Conexion();
 		PreparedStatement preStatement = null;
 		
-		connection = conexion.getConnection();		
+		connection = conexion.getConnection();
+		
 		
 		try {
 			String consulta = "DELETE FROM persona WHERE id_persona = ?";
 			
-			preStatement = connection.prepareStatement(consulta);				
+			preStatement = connection.prepareStatement(consulta);
+			
+			
 			preStatement.setLong(1, idLong);
+			System.out.println("XXXXXXXXXXXXX"+idLong+"XXXXXXXXXXXXXXX");
 			preStatement.executeUpdate();
 			
 			resultado = "ok";

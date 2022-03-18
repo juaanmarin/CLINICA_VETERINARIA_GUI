@@ -53,7 +53,7 @@ public class ConsultarProductosGui extends JDialog implements ActionListener{
 		AreaResultado.setLineWrap(true);
 		
 		JScrollPane scroll = new JScrollPane(AreaResultado, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		scroll.setBounds(25, 63, 405, 116);
+		scroll.setBounds(25, 63, 423, 116);
 		miPanel.add(scroll);
 		
 		JLabel etiId = new JLabel("Id:");
@@ -68,19 +68,19 @@ public class ConsultarProductosGui extends JDialog implements ActionListener{
 		
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnEliminar.setBounds(155, 215, 77, 23);
+		btnEliminar.setBounds(155, 215, 93, 23);
 		btnEliminar.addActionListener(this);
 		miPanel.add(btnEliminar);
 		
 		btnConsultar = new JButton("Consultar");
 		btnConsultar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnConsultar.setBounds(252, 215, 86, 23);
+		btnConsultar.setBounds(258, 215, 100, 23);
 		btnConsultar.addActionListener(this);
 		miPanel.add(btnConsultar);
 		
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnCancelar.setBounds(344, 215, 86, 23);
+		btnCancelar.setBounds(362, 215, 86, 23);
 		btnCancelar.addActionListener(this);
 		miPanel.add(btnCancelar);
 	}
@@ -88,40 +88,47 @@ public class ConsultarProductosGui extends JDialog implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		
 		if(e.getSource() == btnConsultar) {
+			
 			ArrayList<ProductoVo> productos=miCoordinador.consultarTodosLosProductos();
 			AreaResultado.setText(""+productos);
 		}
 		
+		
 		else if(e.getSource() == btnEliminar) {
+			
 			if(textId.getText().equals("")) {
-				JOptionPane.showMessageDialog(null,"Por favor dijite el id del producto para elminar","Campo incompleto",JOptionPane.INFORMATION_MESSAGE);
-			}else {				
-				int idproducto =Integer.parseInt(textId.getText());
+				JOptionPane.showMessageDialog(null,"Por favor llene el Campo de ID","Campos incompletos",JOptionPane.INFORMATION_MESSAGE);
+			}
+			else {
+				long idLong = Long.parseLong(textId.getText());
 				
-				String resul = miCoordinador.eliminarunProducto(idproducto);
+				String resul = miCoordinador.eliminarUnProductoConId(idLong);
 				
 				if(resul.equals("ok")) {
-					limpiar();
 					JOptionPane.showMessageDialog(null, "Eliminacion Exitosa!");
-					
+					textId.setText("");
 				}else {
-					JOptionPane.showMessageDialog(null, "No se pudo Eliminar el producto" ,"ERROR" ,JOptionPane.ERROR_MESSAGE );
+					JOptionPane.showMessageDialog(null, "No se pudo Eliminar la Mascota" ,"ERROR" ,JOptionPane.ERROR_MESSAGE );
 				}
-			}			
+			}
+		
 		}
+		
+		
 		
 		else if (e.getSource() == btnCancelar) {
 			setVisible(false);
-		}	
+		}
+		
 	}
 	
-	private void limpiar() {
-		textId.setText("");
-		AreaResultado.setText("");
-	}
+	
 	
 	public void setCoordinador(Coordinador miCoordinador) {
 		this.miCoordinador=miCoordinador;
+		
 	}
 }

@@ -230,102 +230,133 @@ public class ConsultarPersonaGui extends JDialog implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
 		if(e.getSource()==btnCargar ) {
 			
-			Long idDocumento=Long.parseLong(textDocumento.getText());
-			PersonaVo p=miCoordinador.setConsultarPersona(idDocumento);
-			
-			if (p!=null) {
+			if (textDocumento.getText().equals("")) {
+				JOptionPane.showMessageDialog(null,"Ingrese el campo de su documento","Campos incompletos",JOptionPane.INFORMATION_MESSAGE);
+			}
+			else {
+				Long idDocumento=Long.parseLong(textDocumento.getText());
+				PersonaVo p=miCoordinador.setConsultarPersona(idDocumento);
 				
-				p.setNacimiento(miCoordinador.consultarNacimiento(p.getNacimiento().getIdNacimiento()));
-				
-				textNombre.setText(p.getNombre());
-				textProfesion.setText(p.getProfesion());
-				textTelefono.setText(p.getTelefono());
-				textTipo.setText(p.getTipo()+"");
-				
-				textCiudad.setText(p.getNacimiento().getCiudadNacimiento());
-				textDepartamento.setText(p.getNacimiento().getDepartamentoNacimiento());
-				textPais.setText(p.getNacimiento().getPaisNacimiento());
-				textDia.setText(p.getNacimiento().getFechaNacimiento().getDayOfMonth()+"");
-				textMes.setText(p.getNacimiento().getFechaNacimiento().getMonthValue()+"");
-				textAnio.setText(p.getNacimiento().getFechaNacimiento().getYear()+"");
+				if (p!=null) {
 					
-			}else {
-				JOptionPane.showMessageDialog(null,"No se encuentra la persona, verifique el documento","ADVERTENCIA!!!",JOptionPane.WARNING_MESSAGE);
-			}			
+					p.setNacimiento(miCoordinador.consultarNacimiento(p.getNacimiento().getIdNacimiento()));
+					System.out.println(p);				
+					textNombre.setText(p.getNombre());
+					textProfesion.setText(p.getProfesion());
+					textTelefono.setText(p.getTelefono());
+					textTipo.setText(p.getTipo()+"");
+					
+					textCiudad.setText(p.getNacimiento().getCiudadNacimiento());
+					textDepartamento.setText(p.getNacimiento().getDepartamentoNacimiento());
+					textPais.setText(p.getNacimiento().getPaisNacimiento());
+					textDia.setText(p.getNacimiento().getFechaNacimiento().getDayOfMonth()+"");
+					textMes.setText(p.getNacimiento().getFechaNacimiento().getMonthValue()+"");
+					textAnio.setText(p.getNacimiento().getFechaNacimiento().getYear()+"");
+						
+				}else {
+					JOptionPane.showMessageDialog(null,"No se encuentra la persona, verifique el documento","ADVERTENCIA!!!",JOptionPane.WARNING_MESSAGE);
+				}			
+			}
+			
 		}
 
 		
 		else if (e.getSource() == btnActualizar) {
-			int id = Integer.parseInt(textDocumento.getText());
-			long idLong = Long.parseLong(textDocumento.getText());
-			NacimientoVo numeroID = miCoordinador.obtenerIdNacimiento(id);
 			
-			Long idUsuario = numeroID.getIdNacimiento();
-			
-			PersonaVo miPersona=new PersonaVo();
-			miPersona.setNombre(textNombre.getText());
-			miPersona.setProfesion(textProfesion.getText());
-			miPersona.setTelefono(textTelefono.getText());
-			miPersona.setTipo(Integer.parseInt(textTipo.getText()));
-			miPersona.setIdPersona(idLong);
-			
-			NacimientoVo miNacimiento=new NacimientoVo();
-			miNacimiento.setCiudadNacimiento(textCiudad.getText());
-			miNacimiento.setDepartamentoNacimiento(textDepartamento.getText());
-			miNacimiento.setPaisNacimiento(textPais.getText());
-			miNacimiento.setIdNacimiento(idUsuario);
-			miNacimiento.setFechaNacimiento(LocalDate.of(Integer.parseInt(textAnio.getText()),
-			Integer.parseInt(textMes.getText()), Integer.parseInt(textDia.getText())));
-			miPersona.setNacimiento(miNacimiento);
-			
-			String idNacimiento = miCoordinador.actualizarNacimiento(miPersona);
-			
-			
-			String resp = miCoordinador.actualizarPersona(miPersona);
-		
-
-			if (idNacimiento.equals("ok")) {
-					JOptionPane.showMessageDialog(null, "Actualización Exitosa!");
-					limpiar();
+			if (textDocumento.getText().equals("") || textNombre.getText().equals("") || textTelefono.getText().equals("") || textTipo.getText().equals("") || textProfesion.getText().equals("") || textDia.getText().equals("") || textMes.getText().equals("") || textAnio.getText().equals("") || textCiudad.getText().equals("") || textDepartamento.getText().equals("") || textPais.getText().equals("")) {
+				JOptionPane.showMessageDialog(null,"Debe tener los campos diligenciados y hacer la actualizacion que desee","Campos incompletos",JOptionPane.INFORMATION_MESSAGE);
 			}
 			else {
-				JOptionPane.showMessageDialog(null, "No se pudo Actualizacion el Nacimiento" ,"ERROR" ,JOptionPane.ERROR_MESSAGE );
-			}
-		}
+				
+				int id = Integer.parseInt(textDocumento.getText());
+				long idLong = Long.parseLong(textDocumento.getText());
+				NacimientoVo numeroID = miCoordinador.obtenerIdNacimiento(id);
+				
+				Long idUsuario = numeroID.getIdNacimiento();
+				
+				PersonaVo miPersona=new PersonaVo();
+				miPersona.setNombre(textNombre.getText());
+				miPersona.setProfesion(textProfesion.getText());
+				miPersona.setTelefono(textTelefono.getText());
+				miPersona.setTipo(Integer.parseInt(textTipo.getText()));
+				miPersona.setIdPersona(idLong);
+				
+				NacimientoVo miNacimiento=new NacimientoVo();
+				miNacimiento.setCiudadNacimiento(textCiudad.getText());
+				miNacimiento.setDepartamentoNacimiento(textDepartamento.getText());
+				miNacimiento.setPaisNacimiento(textPais.getText());
+				miNacimiento.setIdNacimiento(idUsuario);
+				miNacimiento.setFechaNacimiento(LocalDate.of(Integer.parseInt(textAnio.getText()),
+				Integer.parseInt(textMes.getText()), Integer.parseInt(textDia.getText())));
+				miPersona.setNacimiento(miNacimiento);
+				
+				String idNacimiento = miCoordinador.actualizarNacimiento(miPersona);
+				
+				
+				String resp = miCoordinador.actualizarPersona(miPersona);
 			
+
+				if (idNacimiento.equals("ok")) {
+						JOptionPane.showMessageDialog(null, "Actualización Exitosa!");
+						limpiar();
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "No se pudo Actualizacion el Nacimiento" ,"ERROR" ,JOptionPane.ERROR_MESSAGE );
+				}
+			}
+			
+		}
+		
+		
+		
 		else if (e.getSource() == btnEliminar) {
 			
-			int id = Integer.parseInt(textDocumento.getText());
-			
-			ArrayList<Long> lista = miCoordinador.obtenerProductoId(id);
-			
-			long idLong = Long.parseLong(textDocumento.getText());
-			NacimientoVo numeroID = miCoordinador.obtenerIdNacimiento(id);
-			
-			Long idUsuario = numeroID.getIdNacimiento();		
-			
-			String eliMascota = miCoordinador.eliminarMascota(idLong);
-			
-			String eliminar = miCoordinador.eliminarTablaProducto(lista);
-			
-			String eliminarProd= miCoordinador.eliminarProducto(idLong);
-			
-			String resp = miCoordinador.eliminarPersona(idLong);
-			
-			String idNacimiento = miCoordinador.eliminarNacimiento(idUsuario);
-					
-			if (idNacimiento.equals("ok")) {
-					JOptionPane.showMessageDialog(null, "Eliminacion Exitosa!");
-					limpiar();
-			}else {
-				JOptionPane.showMessageDialog(null, "No se pudo Eliminar el Nacimiento" ,"ERROR" ,JOptionPane.ERROR_MESSAGE );
+			if (textDocumento.getText().equals("")) {
+				JOptionPane.showMessageDialog(null,"Debe de consultar la persona primero para poder eliminarla","Campos incompletos",JOptionPane.INFORMATION_MESSAGE);
 			}
-		}	
+			
+			else {
+				int id = Integer.parseInt(textDocumento.getText());
+				
+				ArrayList<Long> lista = miCoordinador.obtenerProductoId(id);
+				
+				long idLong = Long.parseLong(textDocumento.getText());
+				NacimientoVo numeroID = miCoordinador.obtenerIdNacimiento(id);
+				
+				Long idUsuario = numeroID.getIdNacimiento();
+				
+				
+				String eliMascota = miCoordinador.eliminarMascota(idLong);
+				
+				String eliminar = miCoordinador.eliminarTablaProducto(lista);
+				
+				String eliminarProd= miCoordinador.eliminarProducto(idLong);
+				
+				String resp = miCoordinador.eliminarPersona(idLong);
+				
+				String idNacimiento = miCoordinador.eliminarNacimiento(idUsuario);
+				
+				
+				if (idNacimiento.equals("ok")) {
+						JOptionPane.showMessageDialog(null, "Eliminacion Exitosa!");
+						limpiar();
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "No se pudo Eliminar el Nacimiento" ,"ERROR" ,JOptionPane.ERROR_MESSAGE );
+				}
+			}
+			
+		}
+		
+		
 		else if (e.getSource() == btnCancelar) {
 			setVisible(false);
-		}	
+		}
+		
+		
 	}
 	
 	private void limpiar() {
@@ -342,6 +373,9 @@ public class ConsultarPersonaGui extends JDialog implements ActionListener {
 		textPais.setText("");
 	}
 		
+
+	
+	
 	public void setCoordinador(Coordinador miCoordinador) {
 		this.miCoordinador=miCoordinador;
 	}

@@ -134,7 +134,7 @@ public class RegistrarProductosGui extends JDialog implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource() == btnRegistrar) {
-			if(txtidProducto.getText().equals("") || txtNombre.getText().equals("") || txtPrecio.getText().equals("")) {
+			if(textIdPersona.getText().equals("") || txtidProducto.getText().equals("") || txtNombre.getText().equals("") || txtPrecio.getText().equals("")) {
 				JOptionPane.showMessageDialog(null,"Por favor llene todos los campos","Campos incompletos",JOptionPane.INFORMATION_MESSAGE);
 			}
 			else {

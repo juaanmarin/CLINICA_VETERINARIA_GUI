@@ -218,9 +218,10 @@ public class Coordinador {
 	public ArrayList<ProductoVo> consultarTodosLosProductos() {
 		return miProductoDao.consultarTodosLosProductos();
 	}
+	
+	public String eliminarUnProductoConId(Long idProducto) {
+		return miProductoDao.eliminarProductoPorId(idProducto);
+	}
 
-	public String eliminarunProducto(int idproducto) {
-		return miProductoDao.eliminarUnProducto(idproducto);
-	}	
 
 }

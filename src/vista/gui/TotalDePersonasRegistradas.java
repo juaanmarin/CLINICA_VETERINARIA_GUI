@@ -28,6 +28,7 @@ public class TotalDePersonasRegistradas extends JDialog implements ActionListene
 	private Coordinador miCoordinador;
 	private JButton btnConsultarTodasLasPersonas;
 	private JButton btnLimpiar;
+
 	
 	public TotalDePersonasRegistradas() {
 		setBounds(100, 100, 450, 300);
@@ -63,16 +64,21 @@ public class TotalDePersonasRegistradas extends JDialog implements ActionListene
 		
 	}
 
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource()==btnConsultarTodasLasPersonas) {
 			ArrayList<PersonaVo> persona=miCoordinador.consultarTodasLasPersonas();
 			AreaResultado.setText(""+persona);
-		}		
+		}
+		
 		else if(e.getSource()==btnLimpiar) {
 			AreaResultado.setText("");
-		}				
+		}
+		
+		
 	}
+
 
 	public void setCoordinador(Coordinador miCoordinador) {
 		this.miCoordinador=miCoordinador;
