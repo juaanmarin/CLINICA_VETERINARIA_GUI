@@ -74,11 +74,8 @@ public class TotalDePersonasRegistradas extends JDialog implements ActionListene
 		
 		else if(e.getSource()==btnLimpiar) {
 			AreaResultado.setText("");
-		}
-		
-		
+		}	
 	}
-
 
 	public void setCoordinador(Coordinador miCoordinador) {
 		this.miCoordinador=miCoordinador;

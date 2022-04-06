@@ -92,7 +92,8 @@ public class PersonaDao {
 					
 					miNacimiento =new NacimientoVo();
 					miNacimiento.setIdNacimiento(Long.parseLong(result.getString("nacimiento_id")));
-					miPersona.setNacimiento(miNacimiento);	
+					miPersona.setNacimiento(miNacimiento);
+
 				}
 				
 				miConexion.desconectar();
@@ -169,11 +170,10 @@ public class PersonaDao {
 		connection=miConexion.getConnection();
 		
 		String consulta="SELECT * FROM persona";
-		System.out.println("*********************************************");
+
 		try {
 			if(connection!=null) {
 				statement=connection.prepareStatement(consulta);
-				//statement.setLong(1, idDocumento);
 				result=statement.executeQuery();
 				
 				while(result.next()==true){
@@ -210,7 +210,6 @@ public class PersonaDao {
 		}
 		finally {
 			miConexion.desconectar();
-			System.out.println(todosLosDatos);
 		}
 		
 		return todosLosDatos;
@@ -226,15 +225,11 @@ public class PersonaDao {
 		
 		connection = conexion.getConnection();
 		
-		
 		try {
-			String consulta = "DELETE FROM persona WHERE id_persona = ?";
-			
+			String consulta = "DELETE FROM persona WHERE id_persona = ?";	
 			preStatement = connection.prepareStatement(consulta);
 			
-			
 			preStatement.setLong(1, idLong);
-			System.out.println("XXXXXXXXXXXXX"+idLong+"XXXXXXXXXXXXXXX");
 			preStatement.executeUpdate();
 			
 			resultado = "ok";

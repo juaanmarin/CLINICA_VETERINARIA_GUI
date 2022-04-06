@@ -242,8 +242,7 @@ public class ConsultarPersonaGui extends JDialog implements ActionListener {
 				
 				if (p!=null) {
 					
-					p.setNacimiento(miCoordinador.consultarNacimiento(p.getNacimiento().getIdNacimiento()));
-					System.out.println(p);				
+					p.setNacimiento(miCoordinador.consultarNacimiento(p.getNacimiento().getIdNacimiento()));		
 					textNombre.setText(p.getNombre());
 					textProfesion.setText(p.getProfesion());
 					textTelefono.setText(p.getTelefono());
@@ -259,11 +258,9 @@ public class ConsultarPersonaGui extends JDialog implements ActionListener {
 				}else {
 					JOptionPane.showMessageDialog(null,"No se encuentra la persona, verifique el documento","ADVERTENCIA!!!",JOptionPane.WARNING_MESSAGE);
 				}			
-			}
-			
+			}		
 		}
-
-		
+	
 		else if (e.getSource() == btnActualizar) {
 			
 			if (textDocumento.getText().equals("") || textNombre.getText().equals("") || textTelefono.getText().equals("") || textTipo.getText().equals("") || textProfesion.getText().equals("") || textDia.getText().equals("") || textMes.getText().equals("") || textAnio.getText().equals("") || textCiudad.getText().equals("") || textDepartamento.getText().equals("") || textPais.getText().equals("")) {
@@ -294,8 +291,7 @@ public class ConsultarPersonaGui extends JDialog implements ActionListener {
 				miPersona.setNacimiento(miNacimiento);
 				
 				String idNacimiento = miCoordinador.actualizarNacimiento(miPersona);
-				
-				
+								
 				String resp = miCoordinador.actualizarPersona(miPersona);
 			
 
@@ -309,9 +305,7 @@ public class ConsultarPersonaGui extends JDialog implements ActionListener {
 			}
 			
 		}
-		
-		
-		
+			
 		else if (e.getSource() == btnEliminar) {
 			
 			if (textDocumento.getText().equals("")) {
@@ -326,17 +320,11 @@ public class ConsultarPersonaGui extends JDialog implements ActionListener {
 				long idLong = Long.parseLong(textDocumento.getText());
 				NacimientoVo numeroID = miCoordinador.obtenerIdNacimiento(id);
 				
-				Long idUsuario = numeroID.getIdNacimiento();
-				
-				
-				String eliMascota = miCoordinador.eliminarMascota(idLong);
-				
-				String eliminar = miCoordinador.eliminarTablaProducto(lista);
-				
-				String eliminarProd= miCoordinador.eliminarProducto(idLong);
-				
-				String resp = miCoordinador.eliminarPersona(idLong);
-				
+				Long idUsuario = numeroID.getIdNacimiento();	
+				String eliMascota = miCoordinador.eliminarMascotaP(idLong);			
+				String eliminar = miCoordinador.eliminarTablaProducto(lista);			
+				String eliminarProd= miCoordinador.eliminarProducto(idLong);			
+				String resp = miCoordinador.eliminarPersona(idLong);			
 				String idNacimiento = miCoordinador.eliminarNacimiento(idUsuario);
 				
 				
@@ -347,16 +335,13 @@ public class ConsultarPersonaGui extends JDialog implements ActionListener {
 				else {
 					JOptionPane.showMessageDialog(null, "No se pudo Eliminar el Nacimiento" ,"ERROR" ,JOptionPane.ERROR_MESSAGE );
 				}
-			}
-			
+			}			
 		}
 		
 		
 		else if (e.getSource() == btnCancelar) {
 			setVisible(false);
-		}
-		
-		
+		}		
 	}
 	
 	private void limpiar() {
@@ -372,10 +357,7 @@ public class ConsultarPersonaGui extends JDialog implements ActionListener {
 		textDepartamento.setText("");
 		textPais.setText("");
 	}
-		
-
-	
-	
+			
 	public void setCoordinador(Coordinador miCoordinador) {
 		this.miCoordinador=miCoordinador;
 	}

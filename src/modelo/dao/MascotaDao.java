@@ -19,7 +19,6 @@ public class MascotaDao {
 		this.miCoordinador=miCoordinador;
 	}
 
-	
 	public String registrarMascota(MascotaVo miMascota) {
 		
 		String resultado = "";
@@ -61,25 +60,21 @@ public class MascotaDao {
 		return resultado;
 	}
 	
-	public String eliminarMascota(Long idPersona) {
+	public String eliminarMascotaP(Long idPersona) {
 		
-		String resultado = "";
-		
+		String resultado = "";		
 		Connection connection = null;
 		Conexion conexion = new Conexion();
 		PreparedStatement preStatement = null;
 		
 		connection = conexion.getConnection();
 		
-		
 		try {
 			String consulta = "DELETE FROM mascota WHERE persona_id = ?";
 			
-			preStatement = connection.prepareStatement(consulta);
-			
+			preStatement = connection.prepareStatement(consulta);		
 			
 			preStatement.setLong(1, idPersona);
-			System.out.println("XXXXXXXXXXXXX"+"MASCOTA:  "+idPersona+"XXXXXXXXXXXXXXX");
 			preStatement.executeUpdate();
 			
 			resultado = "ok";
@@ -113,7 +108,6 @@ public class MascotaDao {
 		connection=miConexion.getConnection();
 		
 		String consulta="SELECT * FROM mascota where persona_id= ? and nombre= ?";
-		System.out.println("*********************************************");
 		try {
 			if(connection!=null) {
 				statement=connection.prepareStatement(consulta);
@@ -157,12 +151,10 @@ public class MascotaDao {
 		try {
 			String consulta = "DELETE FROM mascota WHERE persona_id = ? and nombre = ?";
 			
-			preStatement = connection.prepareStatement(consulta);
-			
+			preStatement = connection.prepareStatement(consulta);		
 			
 			preStatement.setLong(1, idLong);
 			preStatement.setString(2, nombre);
-			System.out.println("XXXXXXXXXXXXX"+idLong+ ""+ nombre+ "XXXXXXXXXXXXXXX");
 			preStatement.executeUpdate();
 			
 			resultado = "ok";
@@ -206,11 +198,9 @@ public class MascotaDao {
 			preStatement.setString(1, miMascota.getColorMascota());
 			preStatement.setString(2, miMascota.getNombre());
 			preStatement.setString(3, miMascota.getRaza());
-			preStatement.setString(4, miMascota.getSexo());
-			
+			preStatement.setString(4, miMascota.getSexo());		
 			preStatement.setLong(5, idLong);
 			preStatement.setString(6, nombre);
-			System.out.println("XXXXXXXXXXXXX"+idLong+ ""+ nombre +"XXXXXXXXXXXXXXX");
 			preStatement.executeUpdate();
 			
 			resultado = "ok";
@@ -230,7 +220,5 @@ public class MascotaDao {
 		}
 		return resultado;
 	}
-	
-	
 
 }

@@ -139,12 +139,9 @@ public class ConsultarMascotasGui extends JDialog implements ActionListener{
 			}else {
 				String nombre = textNombreId.getText();
 				Long idDocumento=Long.parseLong(textDocumnto.getText());
-				MascotaVo mascota = miCoordinador.setConsultarMascota(idDocumento,nombre);
-				
+				MascotaVo mascota = miCoordinador.setConsultarMascota(idDocumento,nombre);			
 				
 				if ( mascota!=null) {
-					
-					System.out.println(mascota);	
 					textDocumnto.setText(textDocumnto.getText());
 					textNombre.setText(mascota.getNombre());
 					textColor.setText(mascota.getColorMascota());
@@ -154,18 +151,13 @@ public class ConsultarMascotasGui extends JDialog implements ActionListener{
 				}else {
 					JOptionPane.showMessageDialog(null,"No se encuentra la mascota, verifique el documento o nombre de la mascota","ADVERTENCIA!!!",JOptionPane.ERROR_MESSAGE);
 				}	
-			}
-			
-			
+			}	
 		}
 		
 		else if(e.getSource() == btnActualizar) {
 			
-			if(textDocumnto.getText().equals("") || textNombre.getText().equals("") || textNombreId.getText().equals("") || textColor.getText().equals("") || textRaza.getText().equals("") || textSexo.getText().equals("")) {
-				
-				
+			if(textDocumnto.getText().equals("") || textNombre.getText().equals("") || textNombreId.getText().equals("") || textColor.getText().equals("") || textRaza.getText().equals("") || textSexo.getText().equals("")) {				
 				JOptionPane.showMessageDialog(null,"Ingrese el campo de su documento y nombre de su mascota","Campos incompletos",JOptionPane.INFORMATION_MESSAGE);
-
 			}
 			else {
 				String nombre = textNombreId.getText();
@@ -176,11 +168,9 @@ public class ConsultarMascotasGui extends JDialog implements ActionListener{
 				miMascota.setNombre(textNombre.getText());
 				miMascota.setRaza(textRaza.getText());
 				miMascota.setColorMascota(textColor.getText());
-				miMascota.setSexo(textSexo.getText());
+				miMascota.setSexo(textSexo.getText());				
 				
-				
-				String resul = miCoordinador.actualizarMascota(miMascota ,idLong, nombre);
-				
+				String resul = miCoordinador.actualizarMascota(miMascota ,idLong, nombre);		
 				
 				if (resul.equals("ok")) {
 					JOptionPane.showMessageDialog(null, "Actualización Exitosa!");
@@ -189,24 +179,17 @@ public class ConsultarMascotasGui extends JDialog implements ActionListener{
 				else {
 					JOptionPane.showMessageDialog(null, "No se pudo Actualizacion el Nacimiento" ,"ERROR" ,JOptionPane.ERROR_MESSAGE );
 				}
-			}
-			
-		}
-		
-		
+			}		
+		}		
 		
 		else if(e.getSource() == btnEliminar){
 			
-			if(textDocumnto.getText().equals("") || textNombre.getText().equals("") || textNombreId.getText().equals("") || textColor.getText().equals("") || textRaza.getText().equals("") || textSexo.getText().equals("")) {
-				
+			if(textDocumnto.getText().equals("") || textNombre.getText().equals("") || textNombreId.getText().equals("") || textColor.getText().equals("") || textRaza.getText().equals("") || textSexo.getText().equals("")) {		
 				JOptionPane.showMessageDialog(null,"Ingrese el campo de su documento y nombre de su mascota","Campos incompletos",JOptionPane.INFORMATION_MESSAGE);
-
 			}
-			else {
-				
+			else {		
 				String nombre = textNombreId.getText();
-				long idLong = Long.parseLong(textDocumnto.getText());
-				
+				long idLong = Long.parseLong(textDocumnto.getText());			
 				String resul = miCoordinador.eliminarMascota(idLong, nombre);
 				
 				if(resul.equals("ok")) {
@@ -215,11 +198,8 @@ public class ConsultarMascotasGui extends JDialog implements ActionListener{
 				}else {
 					JOptionPane.showMessageDialog(null, "No se pudo Eliminar la Mascota" ,"ERROR" ,JOptionPane.ERROR_MESSAGE );
 				}
-			}
-			
-			
-		}
-		
+			}				
+		}		
 	}
 	
 	private void limpiar() {
@@ -229,7 +209,6 @@ public class ConsultarMascotasGui extends JDialog implements ActionListener{
 		textRaza.setText("");
 		textColor.setText("");
 		textSexo.setText("");
-
 	}
 
 	public void setCoordinador(Coordinador miCoordinador) {

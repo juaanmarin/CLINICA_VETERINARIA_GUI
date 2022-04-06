@@ -178,8 +178,8 @@ public class Coordinador {
 		return miNacimientoDao.eliminarNacimiento(idUsuario);
 	}
 	
-	public String eliminarMascota(Long idPersona) {
-		return miMascotaDao.eliminarMascota(idPersona);
+	public String eliminarMascotaP(Long idPersona) {
+		return miMascotaDao.eliminarMascotaP(idPersona);
 	}
 
 	public MascotaVo setConsultarMascota(Long idDocumento, String nombreMas) {
@@ -195,7 +195,6 @@ public class Coordinador {
 	}
 
 	public String registrarProducto(ProductoVo miProducto, int idUsuario) {
-		
 		return miProductoDao.registrarProductos(miProducto, idUsuario);
 	}
 

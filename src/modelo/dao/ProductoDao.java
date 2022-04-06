@@ -76,8 +76,6 @@ public class ProductoDao {
 		String consulta="SELECT * FROM persona where id_persona = ? ";
 		String resp = "";
 		try {
-			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXX_--------------_XXXXXXXXXXXXXXXXXXXXXX");
-			System.out.println(id);
 			if(connection!=null) {
 				statement=connection.prepareStatement(consulta);
 				statement.setLong(1, id);
@@ -86,8 +84,7 @@ public class ProductoDao {
 					Long a = result.getLong("id_persona");
 					return "ok";
 				}
-			}
-			
+			}		
 		} 
 		catch (SQLException e) {
 			System.out.println("Error en la consulta del producto" +e.getMessage());
@@ -95,7 +92,6 @@ public class ProductoDao {
 		finally {
 			miConexion.desconectar();
 		}
-
 		
 		return resp;
 	}
@@ -109,16 +105,12 @@ public class ProductoDao {
 		
 		connection = conexion.getConnection();
 		
-		
 		try {
-			
 			String consulta = "DELETE FROM personas_productos WHERE persona_id = ?";
-			
 			
 			preStatement = connection.prepareStatement(consulta);
 			preStatement.setLong(1, idPersona);
-			preStatement.executeUpdate();
-		
+			preStatement.executeUpdate();	
 				
 			resultado = "ok";
 			
@@ -138,11 +130,7 @@ public class ProductoDao {
 		return resultado;
 		
 	}
-	
-	
-	
-
-	
+		
 	public ArrayList<Long> buscarIdProducto(int id) {
 		ArrayList<Long> lista = new ArrayList<>();
 		
@@ -158,8 +146,6 @@ public class ProductoDao {
 		String consulta = "SELECT producto_id FROM personas_productos WHERE persona_id = ? ";
 		
 		try {
-			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXX_--------------_XXXXXXXXXXXXXXXXXXXXXX");
-			System.out.println(id);
 			if(connection!=null) {
 				statement=connection.prepareStatement(consulta);
 				statement.setLong(1, id);
@@ -169,38 +155,29 @@ public class ProductoDao {
 					
 				}
 				return lista;
-			}
-			
+			}	
 		} 
 		catch (SQLException e) {
 			System.out.println("Error en la consulta del producto" +e.getMessage());
 		} 
 		finally {
 			miConexion.desconectar();
-			System.out.println(lista);
 		}
 		
-		return lista;
-		
+		return lista;	
 	}
-	
-	
+		
 	public String eliminarTablaProductos(ArrayList<Long> lista) {
 		
 		String resultado = "";
 		
 		Connection connection = null;
 		Conexion conexion = new Conexion();
-		PreparedStatement preStatement = null;
-		
+		PreparedStatement preStatement = null;		
 		connection = conexion.getConnection();
-		
-		
-		try {
 			
-			String consulta = "DELETE FROM productos WHERE id_producto = ?";
-			
-			
+		try {		
+			String consulta = "DELETE FROM productos WHERE id_producto = ?";					
 			preStatement = connection.prepareStatement(consulta);
 			
 			for (Long idPersona : lista) {
@@ -237,12 +214,9 @@ public class ProductoDao {
 		
 		ProductoVo miProducto=null;
 		
-		//NacimientoVo miNacimiento=null;
-		
 		connection=miConexion.getConnection();
 		
 		String consulta="SELECT * FROM productos";
-		System.out.println("*********************************************");
 		try {
 			if(connection!=null) {
 				statement=connection.prepareStatement(consulta);
@@ -250,54 +224,41 @@ public class ProductoDao {
 			
 				while(result.next()==true){
 					
-					miProducto=new ProductoVo();
-					
+					miProducto=new ProductoVo();			
 					miProducto.setIdProducto(result.getLong("id_producto"));
 					miProducto.setNombreProducto(result.getString("nombre_producto"));
-					miProducto.setPrecioProducto(result.getDouble("precio_producto"));
-						
+					miProducto.setPrecioProducto(result.getDouble("precio_producto"));				
 					todosLosDatos.add(miProducto);
-				}
-				
+				}	
 			}
 			else {
 				miProducto=null;
-			}
-			
+			}			
 		}
 		catch (SQLException e) {
 			System.out.println("Error en traer toda la lista de personas" +e.getMessage());
 		}
 		finally {
 			miConexion.desconectar();
-			System.out.println(todosLosDatos);
 		}
 		
 		return todosLosDatos;
-	
 	}
-	
-	
 	
 	public String eliminarProductoPorId(Long idProducto) {
 		String resultado = "";
 		
 		Connection connection = null;
 		Conexion conexion = new Conexion();
-		PreparedStatement preStatement = null;
-		
+		PreparedStatement preStatement = null;	
 		connection = conexion.getConnection();
-		
-		
-		try {
-			
+				
+		try {	
 			String consulta = "DELETE FROM productos WHERE id_producto = ?";
-			
-			
+						
 			preStatement = connection.prepareStatement(consulta);
 			preStatement.setLong(1, idProducto);
-			preStatement.executeUpdate();
-		
+			preStatement.executeUpdate();		
 				
 			resultado = "ok";
 			
@@ -317,16 +278,7 @@ public class ProductoDao {
 		return resultado;
 	}
 	
-
 	public void setCoordinador(Coordinador miCoordinador) {
 		this.miCoordinador=miCoordinador;
 	}
-
-	
-
-
-
-
-	
-
 }

@@ -88,14 +88,12 @@ public class ConsultarProductosGui extends JDialog implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		
+			
 		if(e.getSource() == btnConsultar) {
 			
 			ArrayList<ProductoVo> productos=miCoordinador.consultarTodosLosProductos();
 			AreaResultado.setText(""+productos);
-		}
-		
+		}	
 		
 		else if(e.getSource() == btnEliminar) {
 			
@@ -113,22 +111,15 @@ public class ConsultarProductosGui extends JDialog implements ActionListener{
 				}else {
 					JOptionPane.showMessageDialog(null, "No se pudo Eliminar la Mascota" ,"ERROR" ,JOptionPane.ERROR_MESSAGE );
 				}
-			}
-		
+			}	
 		}
-		
-		
-		
+			
 		else if (e.getSource() == btnCancelar) {
 			setVisible(false);
-		}
-		
+		}	
 	}
-	
-	
-	
-	public void setCoordinador(Coordinador miCoordinador) {
-		this.miCoordinador=miCoordinador;
 		
+	public void setCoordinador(Coordinador miCoordinador) {
+		this.miCoordinador=miCoordinador;	
 	}
 }

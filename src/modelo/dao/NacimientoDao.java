@@ -43,7 +43,6 @@ public class NacimientoDao {
 			preStatement.setString(1, miNacimiento.getCiudadNacimiento());
 			preStatement.setString(2, miNacimiento.getDepartamentoNacimiento());
 			preStatement.setString(3, miNacimiento.getFechaNacimiento().toString());
-
 			preStatement.setString(4, miNacimiento.getPaisNacimiento());
 			preStatement.execute();
 			result=preStatement.getGeneratedKeys();
@@ -64,7 +63,6 @@ public class NacimientoDao {
 		finally {
 			conexion.desconectar();
 		}
-		System.out.println("El ID del Nacimiento es: "+idNacimiento);
 		return idNacimiento;	
 	}
 	
@@ -151,7 +149,6 @@ public class NacimientoDao {
 
 	public String actualizarNacimiento(NacimientoVo miNacimiento) {
 
-		System.out.println("XxxxxxxXXX"+miNacimiento.getIdNacimiento()+"XXXxxxxxX");
 		long idNacimiento=miNacimiento.getIdNacimiento();
 		Connection connection = null;
 		Conexion conexion = new Conexion();
@@ -182,7 +179,6 @@ public class NacimientoDao {
 			
 			resp = "ok";
 			
-			
 		} catch (SQLException e) {
 			System.out.println("No se pudo Actualizar los datos del nacimiento: "+ e.getMessage());
 			e.printStackTrace();
@@ -196,15 +192,10 @@ public class NacimientoDao {
 		finally {
 			conexion.desconectar();
 		}
-		System.out.println("El ID del Nacimiento es: "+idNacimiento);
 		return resp;	
 	}
 	
-	
-
 	public String eliminarNacimiento(Long idUsuario) {
-		
-		System.out.println("XxxxxxxXXX"+idUsuario+"XXXxxxxxX");
 		
 		long idNacimiento=idUsuario;
 		Connection connection = null;
@@ -219,9 +210,7 @@ public class NacimientoDao {
 			String consulta = "DELETE FROM nacimiento WHERE id_nacimiento = ?";
 			
 			preStatement = connection.prepareStatement(consulta);
-
-			preStatement.setLong(1, idUsuario);
-			
+			preStatement.setLong(1, idUsuario);		
 			preStatement.executeUpdate();
 			
 			resp = "ok";
@@ -240,7 +229,6 @@ public class NacimientoDao {
 		finally {
 			conexion.desconectar();
 		}
-		System.out.println("El ID del Nacimiento es: "+idNacimiento);
 		return resp;	
 	}
 }
